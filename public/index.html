@@ -17,11 +17,7 @@
         </title>
     </head>
     <body>
-        <h1 id="lat"></h1>
-        <h1 id="long"></h1>
         <br><br>
-        <input type="text" id="email">
-        <button type="button" id="send">Click Test</button>
         <script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-app.js"></script>
         <script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-database.js"></script>
         <script>
@@ -43,14 +39,6 @@
             };
     
             firebase.initializeApp(firebaseConfig);
-
-
-
-            var firebaseRef = firebase.database().ref('Markers');
-            document.querySelector('#send').addEventListener('click', () => {
-                const email = document.getElementById('email').value;
-                firebaseRef.push(email);
-            });
         </script>
 
         <!-- Horizontal Nav Bar -->
@@ -111,7 +99,7 @@
             <input type="text" id="additionalType" name="additionalType">
             <br><br>
 
-            <button type="button" onclick="pullLat()">Add Location</button>
+            <button type="button" onclick="writeMarker()">Add Location</button>
         </div>
         <span style="font: size 18px;cursor:pointer" onclick="openNav()">&#9776; Add Location</span>
         <br><br><br>
