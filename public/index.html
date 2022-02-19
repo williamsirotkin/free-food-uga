@@ -16,6 +16,7 @@
     </head>
     <body>
         <h1 id="lat"></h1>
+        <h1 id="long"></h1>
         <script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-app.js"></script>
         <script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-database.js"></script>
         <script>
@@ -100,7 +101,7 @@
             <input type="text" id="additionalType" name="additionalType">
             <br><br>
 
-            <button type="button" onclick="addMarker()">Add Location</button>
+            <button type="button" onclick="pullCoordinates()">Add Location</button>
         </div>
         <span style="font: size 18px;cursor:pointer" onclick="openNav()">&#9776; Add Location</span>
         <br><br><br>
