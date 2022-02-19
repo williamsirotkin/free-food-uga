@@ -20,7 +20,7 @@ function initMap() {
 
 function addMarkers() {
     let latitudes = [];
-    let longitudes = []
+    let longitudes = [];
     let buildings = [];
     let foods = [];
     let events = [];
@@ -28,49 +28,59 @@ function addMarkers() {
     let durations = []
     for (let i = 0; i < markers.length; i++) {
         var path = "Markers/" + markers[i];
-        var databaseReference = fireabase.database().ref(path).child("Latitude");
+        var databaseReference = firebase.database().ref(path).child("Latitude");
         databaseReference.on('value', snap => {
-            latitudes.push(snap.val());
+            var data = snap.val();
+            var keys = Object.keys(data);
+            console.log(keys);
+            for (var i = 0; i < keys.length; i++) {
+                var k = keys[i];
+                var latitude = data[k].Latitude;
+                console.log(latitude);
+            }
         });
     }
     for (let i = 0; i < markers.length; i++) {
         var path = "Markers/" + markers[i];
-        var databaseReference = fireabase.database().ref(path).child("Longitude");
+        var databaseReference = firebase.database().ref(path).child("Longitude");
         databaseReference.on('value', snap => {
+            console.log(snap.val().Longitude);
             longitudes.push(snap.val());
         });
     }
     for (let i = 0; i < markers.length; i++) {
         var path = "Markers/" + markers[i];
-        var databaseReference = fireabase.database().ref(path).child("Location");
+        var databaseReference = firebase.database().ref(path).child("Location");
         databaseReference.on('value', snap => {
-            buildings.push(snap.val());
+            var scores = snap.val();
+            var keys = Object.keys(scores);
+            console.log(keys);
         });
     }
     for (let i = 0; i < markers.length; i++) {
         var path = "Markers/" + markers[i];
-        var databaseReference = fireabase.database().ref(path).child("Food");
+        var databaseReference = firebase.database().ref(path).child("Food");
         databaseReference.on('value', snap => {
             foods.push(snap.val());
         });
     }
     for (let i = 0; i < markers.length; i++) {
         var path = "Markers/" + markers[i];
-        var databaseReference = fireabase.database().ref(path).child("Event");
+        var databaseReference = firebase.database().ref(path).child("Event");
         databaseReference.on('value', snap => {
             events.push(snap.val());
         });
     }
     for (let i = 0; i < markers.length; i++) {
         var path = "Markers/" + markers[i];
-        var databaseReference = fireabase.database().ref(path).child("Additional");
+        var databaseReference = firebase.database().ref(path).child("Additional");
         databaseReference.on('value', snap => {
             additionals.push(snap.val());
         });
     }
     for (let i = 0; i < markers.length; i++) {
         var path = "Markers/" + markers[i];
-        var databaseReference = fireabase.database().ref(path).child("Duration");
+        var databaseReference = firebase.database().ref(path).child("Duration");
         databaseReference.on('value', snap => {
             durations.push(snap.val());
         });
