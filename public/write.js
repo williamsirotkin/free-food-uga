@@ -28,8 +28,8 @@ async function getLat(building) {
                 Latitude : latitude,
                 Longitude: longitude
             }
-            console.log(data);
             var firebaseRef = firebase.database().ref('Marker');
+            markers.push(data);
             firebaseRef.push(data);
             initMap();
         })
