@@ -8,15 +8,26 @@
         <link rel="stylesheet" href="CSS/map.css">
         <script src="sidenav.js"></script>
         <script src="map.js"></script>
+<<<<<<< Updated upstream
         <script src="pullMarker.js"></script>
+=======
+        <script src="write.js"></script>
+>>>>>>> Stashed changes
         <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBFjAbOl6NxAS76-sA5qugNSMqL3bNUxG0&callback=initMap"></script>
         <title>
             Free Food UGA
         </title>
     </head>
     <body>
+<<<<<<< Updated upstream
         <h1 id="lat"></h1>
         <h1 id="long"></h1>
+=======
+        <br><br>
+        <input type="text" id="email">
+        <button type="button" id="send">Click Test</button>
+        <h1 id="this"></h1>
+>>>>>>> Stashed changes
         <script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-app.js"></script>
         <script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-database.js"></script>
         <script>
@@ -38,9 +49,16 @@
             };
     
             firebase.initializeApp(firebaseConfig);
+<<<<<<< Updated upstream
+=======
+            var firebaseRef = firebase.database().ref('Markers');
+            document.querySelector('#send').addEventListener('click', () => {
+                const email = document.getElementById('email').value;
+                firebaseRef.push(email);
+            });
+>>>>>>> Stashed changes
 
         </script>
-
         <!-- Horizontal Nav Bar -->
         <ul>
             <li><a href="signin.html">Sign in</a></li>
