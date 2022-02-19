@@ -8,16 +8,16 @@
         <link rel="stylesheet" href="CSS/map.css">
         <script src="sidenav.js"></script>
         <script src="map.js"></script>
+        <script src="pullMarker.js"></script>
         <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBFjAbOl6NxAS76-sA5qugNSMqL3bNUxG0&callback=initMap"></script>
         <title>
             Free Food UGA
         </title>
     </head>
     <body>
-        <h1 id="this"></h1>
+        <h1 id="lat"></h1>
         <script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-app.js"></script>
         <script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-database.js"></script>
-
         <script>
             // Import the functions you need from the SDKs you need
             // TODO: Add SDKs for Firebase products that you want to use
@@ -38,11 +38,9 @@
     
             firebase.initializeApp(firebaseConfig);
 
-            var bigOne = document.getElementById('this');
-            var dbRef = firebase.database().ref().child('text');
-            dbRef.on('value', snap => bigOne.innerText = snap.val());
-
         </script>
+
+        <button onclick="pullLat()">Click me</button>
 
         <!-- Horizontal Nav Bar -->
         <ul>
