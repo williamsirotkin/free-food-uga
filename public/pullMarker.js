@@ -5,9 +5,9 @@ async function pullLat(building) {
     var value = document.getElementById('lat');
     var dbRef = firebase.database().ref().child('Buildings').child(building).child('Latitude');
     var latitude = await dbRef.on('value', snap => {
+        console.log(snap.val());
         return snap.val();
     });
-    return latitude;
 }
 
 async function pullLong(building) {
@@ -18,7 +18,7 @@ async function pullLong(building) {
     // pass this in to the write function. This var contains the coordinate.
     var dbRef = firebase.database().ref().child('Buildings').child(building).child('Longitude');
     var longitude = await dbRef.on('value', snap => {
+        console.log(snap.val());
         return snap.val();
     });
-    return longitude;
 }
