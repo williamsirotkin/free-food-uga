@@ -20,7 +20,7 @@ function initMap() {
 
 function addMarkers() {
     let latitudes = [];
-    let longitudes = []
+    let longitudes = [];
     let buildings = [];
     let foods = [];
     let events = [];
