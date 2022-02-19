@@ -3,6 +3,7 @@
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="description" content="Website to coordinate the distribution of free food amongst UGA students">
+        <meta http-equiv="X-UA-Compatible" content="ie-edge"></meta>
         <link rel="stylesheet" href="CSS/sidenav.css">
         <link rel="stylesheet" href="CSS/homepage.css">
         <link rel="stylesheet" href="CSS/map.css">
@@ -16,6 +17,11 @@
         </title>
     </head>
     <body>
+<<<<<<< HEAD
+=======
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
+>>>>>>> c6c6babae63616c8214ad1facc748246bb1e9af4
         <h1 id="lat"></h1>
         <h1 id="long"></h1>
         <br><br>
@@ -43,7 +49,45 @@
             };
     
             firebase.initializeApp(firebaseConfig);
+<<<<<<< HEAD
 
+=======
+<<<<<<< Updated upstream
+=======
+            var firebaseRef = firebase.database().ref('Markers');
+            document.querySelector('#send').addEventListener('click', () => {
+                const email = document.getElementById('email').value;
+                firebaseRef.push(email);
+            });
+>>>>>>> Stashed changes
+=======
+
+        <script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-database.js"></script>
+
+        <script>
+        // Your web app's Firebase configuration
+        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+        var firebaseConfig = {
+        apiKey: "AIzaSyDOs0oemIBzgsVvsS-mzWSSQET6SuHU_Nc",
+        authDomain: "free-food-uga-97846.firebaseapp.com",
+        databaseURL: "https://free-food-uga-97846-default-rtdb.firebaseio.com",
+        projectId: "free-food-uga-97846",
+        storageBucket: "free-food-uga-97846.appspot.com",
+        messagingSenderId: "538379971058",
+        appId: "1:538379971058:web:d69e20fe412440efc9636b",
+        measurementId: "G-6C4FBTMGM1"
+        };
+        
+        firebase.initializeApp(firebaseConfig);
+
+        var bigOne = document.getElementById('this');
+        var dbRef = firebase.database().ref().child('text');
+        dbRef.on('value', snap => bigOne.innerText = snap.val());
+
+        </script>
+>>>>>>> Stashed changes
+>>>>>>> c6c6babae63616c8214ad1facc748246bb1e9af4
 
         </script>
         <!-- Horizontal Nav Bar -->
@@ -69,10 +113,10 @@
             <label for="locationInput">Location:  </label>
             <select id="locationInput" name="locationInput">
                 <option value="select option">Select Option</option>
-                <option value="mlc">MLC</option>
-                <option value="boyd">Boyd</option>
+                <option value="MLC">MLC</option>
+                <option value="Boyd">Boyd</option>
                 <option value="main library">Main Library</option>
-                <option value="slc">SLC</option>
+                <option value="SLC">SLC</option>
             </select><br>
             
             <!-- Adding Food By Type -->
@@ -104,7 +148,7 @@
             <input type="text" id="additionalType" name="additionalType">
             <br><br>
 
-            <button type="button" onclick="pullCoordinates()">Add Location</button>
+            <button type="button" onclick="getBuildingID()">Add Location</button>
         </div>
         <span style="font: size 18px;cursor:pointer" onclick="openNav()">&#9776; Add Location</span>
         <br><br><br>
