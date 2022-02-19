@@ -12,7 +12,7 @@ ul {
     background-color: #333;
     position: fixed;
     top: 0;
-    width: 32%;
+    width: 100%;
 }
   
 li {
@@ -28,8 +28,14 @@ li a {
 }
 
 .filter {
+    margin-top: 120px; /* Add some space below the input */
     position: fixed;
     top: 0;
-    right: 50px;
-    
+    right: 10px;
 }
+
+.submitbutton {
+    float: right;
+}
+
+

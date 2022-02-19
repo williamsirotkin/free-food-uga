@@ -42,11 +42,12 @@
         </script>
 
         <!-- Horizontal Nav Bar -->
-        <ul>
-            <li><a href="signin.html">Sign in</a></li>
-            <li><a href="about.html">About</a></li>
-            <li><a href="https://forms.gle/s2kkRwbRThBNr5px6">Feedback</a></li>
-          </ul>
+              <ul>
+                <li><a href="signin.html">Sign In</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="https://forms.gle/s2kkRwbRThBNr5px6">Feedback</a></li>
+                <li><a href="">Citations</a></li>
+              </ul>
 
         <!-- Title -->
         <h1>
@@ -62,7 +63,10 @@
 
             <!-- Adding Location -->
             <label for="locationInput">Location:  </label>
-            <select id="locationInput" name="locationInput" size="2">
+            <select id="locationInput" name="locationInput">
+                <option value="select option">Select Option</option>
+                <option value="main library">Main Library</option>
+                <option value="SLC">SLC</option>
                 <option value="Aderhold">Aderhold</option>
                 <option value="Admin">Administration Building</option>
                 <option value="Amos">Amos Hall</option>
@@ -119,7 +123,6 @@
                 <option value="LeConte">LeConte Hall</option>
                 <option value="Lipscomb">Lipscomb Hall</option>
                 <option value="Dance">Dance Building</option>
-                <option value="main library">Main Library</option>
                 <option value="Mary Lyndon">Mary Lyndon Hall</option>
                 <option value="McWhorter">McWhorter Hall</option>
                 <option value="Mell">Mell Hall</option>
@@ -145,7 +148,6 @@
                 <option value="Russell">Russell Hall</option>
                 <option value="Rutherford">Rutherford Hall</option>
                 <option value="Sanford">Sanford Hall</option>
-                <option value="SLC">SLC</option>
                 <option value="Soule">Soule Hall</option>
                 <option value="Tate">Tate Student Center</option>
                 <option value="Terrell">Terrell Hall</option>
@@ -199,15 +201,15 @@
 
             <button type="button" onclick="writeMarker()">Add Location</button>
         </div>
-        <span style="font: size 18px;cursor:pointer" onclick="openNav()">&#9776; Add Location</span>
+        <span style="font: size 18px;cursor:pointer" onclick="openNav()">&#9776; Click Here To Add<br>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspFood To Map</span>
         <br><br><br>
 
         <!-- Need to add php for action attribute -->
         <div class="filter">
         
             <!-- By Location  -->
-        <h3>Filter Your Search</h3>
-        <label for="location">By Location: </label>
+        <div><b>&nbsp&nbsp&nbsp&nbsp&nbsp&nbspFilter Your Search</b></div>
+        <label for="location">By Location:</label>
         <select name="location" id="location">
             <option value="any">Any</option>   
             <option value="mlc">MLC</option>
@@ -215,20 +217,22 @@
             <option value="main library">Main Library</option>
             <option value="slc">SLC</option>
         </select>
-        <br><br>
+        <br>
 
         <!-- By Food Type -->
-        <label for="food">By Food Type:</label>
+        <label for="food">Food Type:&nbsp&nbsp&nbsp</label>
         <select name="food" id="food">
             <option value="any">Any</option>
             <option value="pizza">Pizza</option>
             <option value="fruit">Fruit</option>
-            <option value="sandwich">Sandwich</option>
+            <option value="sandwich">Sandwiches</option>
             <option value="dessert">Dessert</option>
             <option value="snack">Snack</option>
         </select>
-        <br><br>
-            <button type="button" onclick="filterMarkers()">Submit</button>
+        <br>
+            <div class = submitbutton>
+                <button type="submitbutton" onclick="filterMarkers()">Submit</button>
+            </div>
         </div>
         <br>
         
