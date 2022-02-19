@@ -1,36 +1,55 @@
 let markers = [];
-let realMarkers = [];
+let latitudes = [];
+let longitudes = [];
 function initMap() {
-    alert("this worked");
-    for (let i = 0; i < realMarkers.length; i++) {
-        realMarkers[i].setMap(null);
+    for (let i = 0; i < markers.length; i++) {
+        let marker = markers[i];
+        marker.setMap(null);
     }
-    realMarkers = [];
-    addMarkers();
-    alert(markers.length);
+    markers = [];
+    readFromDatabase()
     // The location of UGA
     const uga = { lat: 33.9480, lng: -83.3773};
     // The map, centered at UGA
-    const map = new google.maps.Map(document.getElementById("map"), {
+    var map = new google.maps.Map(document.getElementById("map"), {
       zoom: 15,
       center: uga,
     });
-    for (let i = 0; i < realMarkers.length; i++) {
-        realMarkers[i].setMap(map);
+    
+}
+
+function addMarker(latitude, longitude) {
+    const myLatLng = new google.maps.LatLng(latitude, longitude)
+    let marker = new google.maps.Marker({
+        position: myLatLng,
+        title: "This is a test"
+    });
+    console.log(marker);
+    markers.push(marker);
+}
+
+function readFromDatabase() {
+    database = firebase.database();
+
+    var ref = database.ref('Marker');
+    ref.on('value', gotData, errData);
+}
+
+function gotData(data) {
+    var stuff = data.val()
+    var keys = Object.keys(stuff);
+    console.log(keys);
+    for (var i = 0; i < keys.length; i++) {
+        var k = keys[i];
+        var latitude = stuff[k].Latitude;
+        var longitude = stuff[k].Longitude;
+        latitudes.push(latitude);
+        longitudes.push(longitudes);
     }
 }
 
-function addMarkers() {
-    let latitudes = [];
-    let longitudes = [];
-    let durations = [];
-    let foods = [];
-    let events = []
-    let additional = [];
-
-    for (let i = 0; i < markers.length; i++) {
-
-    }
+function errData(err) {
+    console.log(error);
 }
 
 function filterMarkers() {
