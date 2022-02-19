@@ -1,5 +1,11 @@
-let markers = []
+let markers = [];
+let realMarkers = [];
 function initMap() {
+    for (let i = 0; i < realMarkers.length; i++) {
+        realMarkers[i].setMap(null);
+    }
+    realMarkers = [];
+    addMarkers();
     // The location of UGA
     const uga = { lat: 33.9480, lng: -83.3773};
     // The map, centered at UGA
@@ -7,137 +13,92 @@ function initMap() {
       zoom: 15,
       center: uga,
     });
-    for (let i = 0; i < markers.length; i++) {
-        markers[i].setMap(map);
+    for (let i = 0; i < realMarkers.length; i++) {
+        realMarkers[i].setMap(map);
     }
 }
 
-  function addMarker() {
-     var location = document.getElementById("locationInput").value;
-     if (location == "mlc")
-        lat = 33.95179, lng = -83.37666;
-    else if (location == "boyd")
-        lat = 33.94587, lng = -83.37486;
-    else if(location == "main library")
-        lat = 33.95493, lng = -83.37328;
-    else if (location == "slc")
-        lat = 33.94249, lng = -83.37640;
+function addMarkers() {
+    let latitudes = [];
+    let longitudes = []
+    let buildings = [];
+    let foods = [];
+    let events = [];
+    let additionals = [];
+    let durations = []
+    for (let i = 0; i < markers.length; i++) {
+        var path = "Markers/" + markers[i];
+        var databaseReference = fireabase.database().ref(path).child("Latitude");
+        databaseReference.on('value', snap => {
+            latitudes.push(snap.val());
+        });
+    }
+    for (let i = 0; i < markers.length; i++) {
+        var path = "Markers/" + markers[i];
+        var databaseReference = fireabase.database().ref(path).child("Longitude");
+        databaseReference.on('value', snap => {
+            longitudes.push(snap.val());
+        });
+    }
+    for (let i = 0; i < markers.length; i++) {
+        var path = "Markers/" + markers[i];
+        var databaseReference = fireabase.database().ref(path).child("Location");
+        databaseReference.on('value', snap => {
+            buildings.push(snap.val());
+        });
+    }
+    for (let i = 0; i < markers.length; i++) {
+        var path = "Markers/" + markers[i];
+        var databaseReference = fireabase.database().ref(path).child("Food");
+        databaseReference.on('value', snap => {
+            foods.push(snap.val());
+        });
+    }
+    for (let i = 0; i < markers.length; i++) {
+        var path = "Markers/" + markers[i];
+        var databaseReference = fireabase.database().ref(path).child("Event");
+        databaseReference.on('value', snap => {
+            events.push(snap.val());
+        });
+    }
+    for (let i = 0; i < markers.length; i++) {
+        var path = "Markers/" + markers[i];
+        var databaseReference = fireabase.database().ref(path).child("Additional");
+        databaseReference.on('value', snap => {
+            additionals.push(snap.val());
+        });
+    }
+    for (let i = 0; i < markers.length; i++) {
+        var path = "Markers/" + markers[i];
+        var databaseReference = fireabase.database().ref(path).child("Duration");
+        databaseReference.on('value', snap => {
+            durations.push(snap.val());
+        });
+    }
 
-    let myLatLng = new google.maps.LatLng(lat, lng);
-    let marker = new google.maps.Marker({
-        position: myLatLng,
-        location: getLocation(lat, lng),
-        title: "pizza",
-        optimized: true,
-        icon: "/Images/pizza.png"
-    });
-    
-    let myLatLng2 = new google.maps.LatLng(lat, lng);
-    let marker2 = new google.maps.Marker({
-        position: myLatLng2,
-        location: getLocation(lat, lng),
-        title: "dessert",
-        optimized: true,
-        icon: "/Images/icecream.png"
-    });
-    
-    let myLatLng3 = new google.maps.LatLng(lat, lng);
-    let marker3 = new google.maps.Marker({
-        position: myLatLng3,
-        location: getLocation(lat, lng),
-        title: "fruit",
-        optimized: true,
-        icon: "/Images/fruit.png"
-    });
-    let myLatLng4 = new google.maps.LatLng(lat, lng);
-    let marker4 = new google.maps.Marker({
-        position: myLatLng4,
-        location: getLocation(lat, lng),
-        title: "sandwich",
-        optimized: true,
-        icon: "/Images/sandwich.png"
-    });
-    let myLatLng5 = new google.maps.LatLng(lat, lng);
-    let marker5 = new google.maps.Marker({
-        position: myLatLng5,
-        location: getLocation(lat, lng),
-        title: "mystery",
-        optimized: true,
-        icon: "/Images/mystery.png"        
-    });
-    let myLatLng6 = new google.maps.LatLng(lat, lng);
-    let marker6 = new google.maps.Marker({
-        position: myLatLng6,
-        location: getLocation(lat, lng),
-        title: "snack",
-        optimized: true,
-        icon: "/Images/chips.png"        
-    });
-    
-    let infowindow = new google.maps.InfoWindow({
-        content: "<b>Location:</b> " + getLocation(lat, lng) + "<br>" + "<b>Food: </b>" + document.getElementById("foodType").value + "<br>" + "<b>Duration: </b>" +
-        document.getElementById("duration").value + "<br>" + "<b>Event: </b>" + document.getElementById("eventType").value + "<br>" + "<b>Info: </b>" + document.getElementById("additionalType").value + "<br>" 
-    });
+    for (let i = 0; i < markers.length; i++) {
+        let myLatLng = new google.maps.LatLng(latitudes[i]. longitudes[i]);
+        let marker = new google.maps.Marker({
+            position: myLatLng,
+            location: buildings[i],
+            title: foods[i],
+            optimized: true
+        });
+        let infowindow = new google.maps.InfoWindow({
+            content: "<b>Location:</b> " + buildings[i] + "<br>" + "<b>Food: </b>" + foods[i] + "<br>" + "<b>Duration: </b>" +
+            duration[i] + "<br>" + "<b>Event: </b>" + events[i] + "<br>" + "<b>Info: </b>" + additionals[i] + "<br>"
+        });
 
-    marker.addListener("click", () => {
-        infowindow.open({
-            anchor: marker,
-            map,
-            shouldfocus: false,
+        marker.addListener("click", () => {
+            infowindow.open({
+                anchor: marker,
+                map,
+                should: false,
+            });
         });
-    });
-    marker2.addListener("click", () => {
-        infowindow.open({
-            anchor: marker2,
-            map,
-            shouldfocus: false,
-        });
-    });
-    marker3.addListener("click", () => {
-        infowindow.open({
-            anchor: marker3,
-            map,
-            shouldfocus: false,
-        });
-    });
-    marker4.addListener("click", () => {
-        infowindow.open({
-            anchor: marker4,
-            map,
-            shouldfocus: false,
-        });
-    });
-    marker5.addListener("click", () => {
-        infowindow.open({
-            anchor: marker5,
-            map,
-            shouldfocus: false,
-        });
-    });
-    marker6.addListener("click", () => {
-        infowindow.open({
-            anchor: marker6,
-            map,
-            shouldfocus: false,
-        });
-    });
 
-    var foodType = document.getElementById("foodType").value;
-    if (foodType == "pizza")
-        markers.push(marker);
-    else if (foodType == "dessert")
-        markers.push(marker2);
-    else if(foodType == "fruit")
-        markers.push(marker3);
-    else if (foodType == "sandwich")
-        markers.push(marker4);
-    else if (foodType == "mystery") 
-        markers.push(marker5);
-    else if (foodType == "snack") 
-        markers.push(marker6);
-
-    // Calls InitMap Function To Initialize Markers On The Map
-    initMap();
+        realMarkers.push(marker);
+    }
 }
 
 function filterMarkers() {

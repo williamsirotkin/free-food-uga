@@ -1,5 +1,6 @@
 function writeMarker() {
-    var index = markers.length;
+    var index = Math.floor(Math.random() * 5000) + 1;
+    markers.push(index);
     var string = "Markers/" + index
     var firebaseRef = firebase.database().ref(string);
     var select = document.getElementById('locationInput');
