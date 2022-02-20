@@ -29,18 +29,18 @@ function initMap() {
     for (let i = 0; i < latitudes.length; i++) {
 
         let myLatLng = new google.maps.LatLng(latitudes[i], longitudes[i]);
+        var string = "<b>Building:</b> " + buildings[i] + "<br>";
+        string += "<b>Food:</b> " + foods[i] + "<br>";
+        string += "<b>Event:</b> " + events[i] + "<br>";
+        string += "<b>Duration:</b> " + durations[i] + "<br>";
+        string += "<b>Additional Comments:</b> " + additionals[i];
+        var infowindow = new google.maps.InfoWindow({
+            content: string
+        });
         let marker = new google.maps.Marker({
             position: myLatLng,
             map: map,
             icon: "Images/" + foods[i] + ".png"
-        });
-        var string = "Building: " + buildings[i] + "\n";
-        string += "Food: " + foods[i] + "\n";
-        string += "Event: " + events[i] + "\n";
-        string += "Duration: " + durations[i] + "\n";
-        string += "Additional Comments: " + additionals[i];
-        var infowindow = new google.maps.InfoWindow({
-            content: string
         });
         marker.addListener("click", () => {
             infowindow.open({
