@@ -22,6 +22,7 @@ function writeMarker() {
 }
 
 function signin_page() {
+    console.log("works yay");
     window.location.href = "signin2.html";
 }
 
