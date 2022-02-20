@@ -34,7 +34,8 @@ function initMap() {
         string += "<b>Event:</b> " + events[i] + "<br>";
         string += "<b>Duration:</b> " + durations[i] + "<br>";
         string += "<b>Additional Comments:</b> " + additionals[i];
-        var infowindow = new google.maps.InfoWindow({
+        console.log(string)
+        let infowindow = new google.maps.InfoWindow({
             content: string
         });
         let marker = new google.maps.Marker({
