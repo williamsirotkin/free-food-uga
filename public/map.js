@@ -23,15 +23,16 @@ function initMap() {
     map = new google.maps.Map(document.getElementById("map"), {
       zoom: 15,
       center: uga,
-    });
+    }); 
 
     console.log(latitudes[0]);
     for (let i = 0; i < latitudes.length; i++) {
-        latitudes
+
         let myLatLng = new google.maps.LatLng(latitudes[i], longitudes[i]);
         let marker = new google.maps.Marker({
             position: myLatLng,
             map: map,
+            icon: "Images/" + foods[i] + ".png"
         });
         var string = "Building: " + buildings[i] + "\n";
         string += "Food: " + foods[i] + "\n";
