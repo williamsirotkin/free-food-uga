@@ -5,6 +5,8 @@ let additionals = [];
 let buildings = [];
 let events = [];
 let foods = [];
+let ends = [];
+let starts = [];
 var map;
 function initMap() {
     longitudes = [];
@@ -13,6 +15,8 @@ function initMap() {
     buildings = [];
     events = [];
     foods = [];
+    starts = [];
+    ends = [];
     readFromDatabase()
     // The location of UGA
     const uga = { lat: 33.9480, lng: -83.3773};
@@ -32,6 +36,8 @@ function initMap() {
         var string = "<b>Building:</b> " + buildings[i] + "<br>";
         string += "<b>Food:</b> " + foods[i] + "<br>";
         string += "<b>Event:</b> " + events[i] + "<br>";
+        string += "<b>Start:</b> " + starts[i] + "<br>";
+        string += "<b>End:</b> " + ends[i] + "<br>";
         string += "<b>Additional Comments:</b> " + additionals[i];
         let infowindow = new google.maps.InfoWindow({
             content: string
@@ -78,6 +84,8 @@ function gotData(data) {
         events.push(stuff[k].Event);
         additionals.push(stuff[k].Additional);
         foods.push(stuff[k].Food);
+        starts.push(stuff[k].Start);
+        ends.push(stuff[k].End);
     }
 }
 

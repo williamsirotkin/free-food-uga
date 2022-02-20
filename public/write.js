@@ -44,13 +44,17 @@ async function getLat(building) {
                 select = document.getElementById("duration")
                 var eventType = document.getElementById('eventType').value;
                 var additional = document.getElementById('additionalType').value;
+                var end = document.getElementById('endTime').value;
+                var start = document.getElementById('startTime').value;
                 var data = {
                     Building : building,
                     Food : food,
                     Event : eventType,
                     Additional : additional,
                     Latitude : latitude,
-                    Longitude: longitude
+                    Longitude: longitude,
+                    Start: start,
+                    End: end
                 }
                 var firebaseRef = firebase.database().ref('Marker');
                 if (building != "Aderhold") {
