@@ -33,6 +33,21 @@ function initMap() {
             position: myLatLng,
             map: map,
         });
+        var string = "Building: " + buildings[i] + "\n";
+        string += "Food: " + foods[i] + "\n";
+        string += "Event: " + events[i] + "\n";
+        string += "Duration: " + durations[i] + "\n";
+        string += "Additional Comments: " + additionals[i];
+        var infowindow = new google.maps.InfoWindow({
+            content: string
+        });
+        marker.addListener("click", () => {
+            infowindow.open({
+                anchor: marker,
+                map,
+                shouldFocus: false,
+            });
+        });
     }
 }
 
