@@ -1,20 +1,8 @@
-// Sees if a user is logged in
-import { getAuth } from "firebase/auth";
-let auth = getAuth();
-let user = auth.currentUser;
 
 // Default valuesfun
 var count = 0;
 var latitude = 50;
 var longitude = 50;
-
-function checkAuthentication() {
-    if (user) {
-        writeMarker();
-    } else {
-        signin_page();
-    }
-}
 
 function writeMarker() {
     if (count == 0) {
@@ -43,8 +31,6 @@ async function getLat(building) {
             Longitude: "60"
         }
         var firebaseRef = firebase.database().ref('Marker');
-        firebaseRef.push(data);
-        markers.push(data);
         initMap();
     } else {
         var dbRef1 = firebase.database().ref().child('Buildings').child(building).child('Latitude');
@@ -69,8 +55,10 @@ async function getLat(building) {
                     Longitude: longitude
                 }
                 var firebaseRef = firebase.database().ref('Marker');
-                markers.push(data);
-                firebaseRef.push(data);
+                if (building != "Aderhold") {
+                    markers.push(data);
+                    firebaseRef.push(data);
+                }
                 initMap();
             })
         });
