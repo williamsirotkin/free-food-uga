@@ -1,0 +1,11 @@
+Welcome to Free Food UGA! We created this website in the UGA 2022 Hackathon
+because we want to provide UGA students and faculty a quick, simple, and seamless way to find free food around campus. 
+Our goal is to benefit the UGA communtiy by promoting food giveaways and supporting local sustainability by reducing food waste. 
+Go Dawgs! 
+
+Visit https://freefooduga.com to see our website!
+
+In order for us to provide you with this amazing way to find free food, 
+we made use of a firebase database to store the data we put in out markers,
+structured our website in HTML, styled it nicely in CSS, and added lots of functionality 
+with JavaScript. We also used many API websites such as Google Map API, Embedded API, GCP, Node.js, and NoSQL.  
