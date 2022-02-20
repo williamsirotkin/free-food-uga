@@ -39,8 +39,9 @@
             
             var hours = new Date().getHours();
             var minutes = new Date().getMinutes();
-
-            if (minutes == 00 && hours & 2 == 0) {
+            console.log(hours);
+            console.log(minutes);
+            if (minutes % 5) {
                 deleteFromDatabase();
             }
 
