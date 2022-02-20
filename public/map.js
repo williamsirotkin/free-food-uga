@@ -51,6 +51,7 @@ function initMap() {
             });
         });
     }
+    closeNav();
 }
 
 function readFromDatabase() {
