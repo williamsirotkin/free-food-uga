@@ -1,8 +1,16 @@
-
+const user = firebase.auth().currentUser;
 // Default valuesfun
 var count = 0;
 var latitude = 50;
 var longitude = 50;
+
+function checkUser() {
+    if (user) {
+        writeMarker();
+    } else {
+        signin_page();
+    }
+}
 
 function writeMarker() {
     if (count == 0) {
