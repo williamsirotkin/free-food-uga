@@ -1,6 +1,21 @@
+// Sees if a user is logged in
+import { getAuth } from "firebase/auth";
+let auth = getAuth();
+let user = auth.currentUser;
+
+// Default valuesfun
 var count = 0;
 var latitude = 50;
 var longitude = 50;
+
+function checkAuthentication() {
+    if (user) {
+        writeMarker();
+    } else {
+        signin_page();
+    }
+}
+
 function writeMarker() {
     if (count == 0) {
         getLat("Nothing");
@@ -8,6 +23,10 @@ function writeMarker() {
     var select = document.getElementById('locationInput');
     var building = select.options[select.selectedIndex].value;
     getLat(building);
+}
+
+function signin_page() {
+    window.location.href = "signin2.html";
 }
 
 async function getLat(building) {
