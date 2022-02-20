@@ -75,7 +75,7 @@ function gotData(data) {
         latitudes.push(stuff[k].Latitude);
         longitudes.push(stuff[k].Longitude);
         buildings.push(stuff[k].Building);
-        events.push(stuff[k].Events);
+        events.push(stuff[k].Event);
         additionals.push(stuff[k].Additional);
         foods.push(stuff[k].Food);
     }
