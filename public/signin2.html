@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ 
+   <link rel="stylesheet" href=CSS/signin.css">
+ 
+   <script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-app.js"></script>
+   <script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-database.js"></script>
+   <script src="signIn.js"></script>
+</head>
+<body>
+ 
+<div class="formContainer">
+   <h1>Log In or Sign up With Google:</h1>
+   <input type="email" placeholder="email here" id="email"><br>
+   <input type="password" placeholder="password here" id="password"><br>
+   <button onclick="signUp()" id="signUp">SignUp</button>
+   <button onclick="signIn()" id="signIn">SignIn</button>
+   <button onclick="signOut()" id="signOut">SignOut</button>
+</div>
+ 
+</body>
+</html>
