@@ -41,7 +41,7 @@
             var minutes = new Date().getMinutes();
             console.log(hours);
             console.log(minutes);
-            if (minutes % 5) {
+            if (hours % 2 == 0 && minutes == 0) {
                 deleteFromDatabase();
             }
 
