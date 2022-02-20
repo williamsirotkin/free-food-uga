@@ -3,7 +3,6 @@ let longitudes = []
 let latitudes = [];
 let additionals = [];
 let buildings = [];
-let durations = [];
 let events = [];
 let foods = [];
 var map;
@@ -12,7 +11,6 @@ function initMap() {
     latitudes = [];
     additionals = [];
     buildings = [];
-    durations = [];
     events = [];
     foods = [];
     readFromDatabase()
@@ -33,7 +31,6 @@ function initMap() {
         let myLatLng = new google.maps.LatLng(latitudes[i], longitudes[i]);
         var string = "<b>Building:</b> " + buildings[i] + "<br>";
         string += "<b>Food:</b> " + foods[i] + "<br>";
-        string += "<b>Duration:</b> " + durations[i] + "<br>";
         string += "<b>Event:</b> " + events[i] + "<br>";
         string += "<b>Additional Comments:</b> " + additionals[i];
         let infowindow = new google.maps.InfoWindow({
@@ -78,7 +75,6 @@ function gotData(data) {
         latitudes.push(stuff[k].Latitude);
         longitudes.push(stuff[k].Longitude);
         buildings.push(stuff[k].Building);
-        durations.push(stuff[k].Duration);
         events.push(stuff[k].Events);
         additionals.push(stuff[k].Additional);
         foods.push(stuff[k].Food);

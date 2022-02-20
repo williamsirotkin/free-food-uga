@@ -51,13 +51,11 @@ async function getLat(building) {
                 var select = document.getElementById("foodType");
                 var food = select.options[select.selectedIndex].value;
                 select = document.getElementById("duration")
-                var duration = select.options[select.selectedIndex].value;
                 var eventType = document.getElementById('eventType').value;
                 var additional = document.getElementById('additionalType').value;
                 var data = {
                     Building : building,
                     Food : food,
-                    Duration: duration,
                     Event : eventType,
                     Additional : additional,
                     Latitude : latitude,

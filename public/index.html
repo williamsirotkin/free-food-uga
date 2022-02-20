@@ -37,6 +37,12 @@
             };
             firebase.initializeApp(firebaseConfig);
             
+            var hours = new Date().getHours();
+            var minutes = new Date().getMinutes();
+
+            if (minutes == 00 && hours & 2 == 0) {
+                deleteFromDatabase();
+            }
 
         </script>
 
@@ -171,15 +177,6 @@
             </select>
             <br>
  
-            <!-- Duration of Event -->
-            <label for="duration">Duration:  </label>
-            <select name="duration" id="duration">
-                <option value="30 min">30 min</option>
-                <option value="1 hour">1 hour</option>
-                <option value="2 hours">2 hours</option>
-                <option value="3 hours">3 hours</option>
-            </select>
-            <br>
 
             <label for="eventType">Event (Optional)</label>
             <input type="text" id="eventType" name="eventType"><br>
