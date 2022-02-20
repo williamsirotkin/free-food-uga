@@ -8,7 +8,6 @@ let events = [];
 let foods = [];
 var map;
 function initMap() {
-    markers = [];
     longitudes = [];
     latitudes = [];
     additionals = [];
@@ -54,6 +53,9 @@ function initMap() {
         });
     }
     closeNav();
+    if (count == 0) {
+        writeMarker();
+    }
 }
 
 function readFromDatabase() {
@@ -69,7 +71,6 @@ function gotData(data) {
     for (var i = 0; i < keys.length; i++) {
         var k = keys[i];
         latitudes.push(stuff[k].Latitude);
-        console.log(stuff[k].Latitude);
         longitudes.push(stuff[k].Longitude);
         buildings.push(stuff[k].Building);
         durations.push(stuff[k].Duration);
