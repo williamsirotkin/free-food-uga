@@ -1,26 +1,95 @@
 <!DOCTYPE html>
-<html>
-<head>
-   <meta charset="UTF-8">
-   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<html lang="en">
+ <head>
+   <meta charset="UTF-8" />
+   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+   <title>Firebase Auth: Google - TechFerment</title>
+ </head>
+ <body>
+   <h1>Log in With Google</h1>
  
-   <link rel="stylesheet" href=CSS/signin.css">
+   <div id="LoginScreen">
+     <button id="login">Login with Google</button>
+   </div>
  
+   <div id="dashboard">
+     <div id="userDetails"></div>
+     <button id="logout">Logout</button>
+   </div>
+ 
+   <!-- The core Firebase JS SDK is always required and must be listed first -->
    <script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-app.js"></script>
    <script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-database.js"></script>
-   <script src="signIn.js"></script>
-</head>
-<body>
  
-<div class="formContainer">
-   <h1>Log In or Sign up With Google:</h1>
-   <input type="email" placeholder="email here" id="email"><br>
-   <input type="password" placeholder="password here" id="password"><br>
-   <button onclick="signUp()" id="signUp">SignUp</button>
-   <button onclick="signIn()" id="signIn">SignIn</button>
-   <button onclick="signOut()" id="signOut">SignOut</button>
-</div>
+   <!-- TODO: Add SDKs for Firebase products that you want to use
+    https://firebase.google.com/docs/web/setup#available-libraries -->
+
+    <script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-auth.js"></script>
  
-</body>
+   <script>
+   // Your web app's Firebase configuration
+     var firebaseConfig = {
+           apiKey: "AIzaSyDOs0oemIBzgsVvsS-mzWSSQET6SuHU_Nc",
+           authDomain: "free-food-uga-97846.firebaseapp.com",
+           databaseURL: "https://free-food-uga-97846-default-rtdb.firebaseio.com",
+           projectId: "free-food-uga-97846",
+           storageBucket: "free-food-uga-97846.appspot.com",
+           messagingSenderId: "538379971058",
+           appId: "1:538379971058:web:d69e20fe412440efc9636b",
+           measurementId: "G-6C4FBTMGM1"
+     };
+     // Initialize Firebase
+     firebase.initializeApp(firebaseConfig);
+ 
+     document.getElementById('dashboard').style.display="none"
+ 
+     document.getElementById('login').addEventListener('click', GoogleLogin)
+     document.getElementById('logout').addEventListener('click', LogoutUser)
+ 
+     var provider = new firebase.auth.GoogleAuthProvider();
+ 
+     function GoogleLogin(){
+       console.log('Login Btn Call')
+       firebase.auth().signInWithPopup(provider).then(res=>{
+         console.log(res.user)
+         document.getElementById('LoginScreen').style.display="none"
+         document.getElementById('dashboard').style.display="block"
+         showUserDetails(res.user)
+       }).catch(e=>{
+         console.log(e)
+       })
+     }
+ 
+     function showUserDetails(user){
+       document.getElementById('userDetails').innerHTML = `
+         <img src="${user.photoURL}" style="width:10%">
+         <p>Name: ${user.displayName}</p>
+         <p>Email: ${user.email}</p>
+       `
+     }
+ 
+     function checkAuthState(){
+       firebase.auth().onAuthStateChanged(user=>{
+         if(user){
+           document.getElementById('LoginScreen').style.display="none"
+           document.getElementById('dashboard').style.display="block"
+           showUserDetails(user)
+         }else{
+ 
+         }
+       })
+     }
+ 
+     function LogoutUser(){
+       console.log('Logout Btn Call')
+       firebase.auth().signOut().then(()=>{
+         document.getElementById('LoginScreen').style.display="block"
+         document.getElementById('dashboard').style.display="none"
+       }).catch(e=>{
+         console.log(e)
+       })
+     }
+     checkAuthState()
+   </script>
+ </body>
 </html>
