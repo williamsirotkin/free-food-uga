@@ -6,17 +6,20 @@
    <title>Firebase Auth: Google - TechFerment</title>
  </head>
  <body>
-   <h1>Log in With Google</h1>
- 
-   <div id="LoginScreen">
-     <button id="login">Login with Google</button>
-   </div>
+    
+    <h2 style="text-align:center;">You Must Log In With Google To Add a Food Item</h2>
+    <div id="LoginScreen" style="text-align: center">
+        <button id="login">Click to Login with Google</button>
+    </div>
+
  
    <div id="dashboard">
      <div id="userDetails"></div>
      <button id="logout">Logout</button>
    </div>
- 
+
+   <input type="button" value="Home Page" onclick="home_page()"/>
+   
    <!-- The core Firebase JS SDK is always required and must be listed first -->
    <script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-app.js"></script>
    <script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-database.js"></script>
@@ -55,6 +58,7 @@
          document.getElementById('LoginScreen').style.display="none"
          document.getElementById('dashboard').style.display="block"
          showUserDetails(res.user)
+
        }).catch(e=>{
          console.log(e)
        })
@@ -78,6 +82,10 @@
  
          }
        })
+     }
+
+     function home_page() {
+         window.location.href = "index.html";
      }
  
      function LogoutUser(){
