@@ -18,8 +18,8 @@ function checkAuthentication() {
 
 function writeMarker() {
     if (count == 0) {
-        getLat("Nothing");
-    }
+        getLat("Nothing")
+    } 
     var select = document.getElementById('locationInput');
     var building = select.options[select.selectedIndex].value;
     getLat(building);
@@ -31,7 +31,7 @@ function signin_page() {
 
 async function getLat(building) {
     console.log(count);
-    if (count == 0) {
+    if (count == 0 || building == "Nothing") {
         count++;
         var data = {
             Building: "Fake",

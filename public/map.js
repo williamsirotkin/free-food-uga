@@ -57,6 +57,11 @@ function initMap() {
         writeMarker();
     }
 }
+  
+
+function deleteFromDatabase() {
+    firebase.database().ref('Marker').remove();
+}
 
 function readFromDatabase() {
     database = firebase.database();
