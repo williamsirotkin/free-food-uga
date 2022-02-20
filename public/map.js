@@ -1,15 +1,38 @@
 let markers = [];
+let longitudes = []
+let latitudes = [];
+let additionals = [];
+let buildings = [];
+let durations = [];
+let events = [];
+let foods = [];
+var map;
 function initMap() {
+    markers = [];
+    longitudes = [];
+    latitudes = [];
+    additionals = [];
+    buildings = [];
+    durations = [];
+    events = [];
+    foods = [];
     readFromDatabase()
     // The location of UGA
     const uga = { lat: 33.9480, lng: -83.3773};
     // The map, centered at UGA
-    var map = new google.maps.Map(document.getElementById("map"), {
+    map = new google.maps.Map(document.getElementById("map"), {
       zoom: 15,
       center: uga,
     });
-    for (let i = 0; i < markers.length; i++) {
 
+    console.log(latitudes[0]);
+    for (let i = 0; i < latitudes.length; i++) {
+        latitudes
+        let myLatLng = new google.maps.LatLng(latitudes[i], longitudes[i]);
+        let marker = new google.maps.Marker({
+            position: myLatLng,
+            map: map,
+        });
     }
 }
 
@@ -25,27 +48,14 @@ function gotData(data) {
     var keys = Object.keys(stuff);
     for (var i = 0; i < keys.length; i++) {
         var k = keys[i];
-        var latitude = stuff[k].Latitude;
-        var longitude = stuff[k].Longitude;
-        var additional = stuff[k].Additional;
-        var building = stuff[k].Building;
-        var duration = stuff[k].Duration;
-        var event = stuff[k].Event;
-        var food = stuff[k].Food;
-        var myLatLng = new google.maps.LatLng(latitude, longitude);
-        var marker = new google.maps.Marker({
-            position: myLatLng
-        });
-        const infowindow = new google.maps.InfoWindow({
-            content: building
-        });
-        marker.addListener("click", () => {
-            infowindow.open({
-                anchor: marker,
-                map,
-                shouldFocus: false,
-            });
-        });
+        latitudes.push(stuff[k].Latitude);
+        console.log(stuff[k].Latitude);
+        longitudes.push(stuff[k].Longitude);
+        buildings.push(stuff[k].Building);
+        durations.push(stuff[k].Durations);
+        events.push(stuff[k].Events);
+        additionals.push(stuff[k].Additional);
+        foods.push(stuff[k].Food);
     }
 }
 
