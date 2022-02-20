@@ -84,4 +84,3 @@ function gotData(data) {
 function errData(err) {
     console.log(error);
 }
-
