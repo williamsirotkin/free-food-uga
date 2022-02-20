@@ -27,14 +27,16 @@ function initMap() {
 
     console.log(latitudes[0]);
     for (let i = 0; i < latitudes.length; i++) {
-
+        if (!events[i]) 
+            events[i] = "";
+        if (!additionals[i])
+            additionals[i] = "";
         let myLatLng = new google.maps.LatLng(latitudes[i], longitudes[i]);
         var string = "<b>Building:</b> " + buildings[i] + "<br>";
         string += "<b>Food:</b> " + foods[i] + "<br>";
-        string += "<b>Event:</b> " + events[i] + "<br>";
         string += "<b>Duration:</b> " + durations[i] + "<br>";
+        string += "<b>Event:</b> " + events[i] + "<br>";
         string += "<b>Additional Comments:</b> " + additionals[i];
-        console.log(string)
         let infowindow = new google.maps.InfoWindow({
             content: string
         });
@@ -70,7 +72,7 @@ function gotData(data) {
         console.log(stuff[k].Latitude);
         longitudes.push(stuff[k].Longitude);
         buildings.push(stuff[k].Building);
-        durations.push(stuff[k].Durations);
+        durations.push(stuff[k].Duration);
         events.push(stuff[k].Events);
         additionals.push(stuff[k].Additional);
         foods.push(stuff[k].Food);
