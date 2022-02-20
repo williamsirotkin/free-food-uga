@@ -29,17 +29,6 @@ function signin_page() {
 async function getLat(building) {
     console.log(count);
     if (count == 0 || building == "Nothing") {
-        count++;
-        var data = {
-            Building: "Fake",
-            Food: "Fake",
-            Duration: "9",
-            Event: "Funeral",
-            Additional: "You are fake",
-            Latitude: "60",
-            Longitude: "60"
-        }
-        var firebaseRef = firebase.database().ref('Marker');
         initMap();
     } else {
         var dbRef1 = firebase.database().ref().child('Buildings').child(building).child('Latitude');
