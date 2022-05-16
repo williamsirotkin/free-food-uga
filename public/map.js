@@ -34,7 +34,7 @@ function initMap() {
             additionals[i] = "";
         let myLatLng = new google.maps.LatLng(latitudes[i], longitudes[i]);
         var string = "<b>Building:</b> " + buildings[i] + "<br>";
-        string += "<b>Food:</b> " + foods[i] + "<br>";
+        string += "<b>Food:</b> " + formatFood(foods[i]) + "<br>";
         string += "<b>Event:</b> " + events[i] + "<br>";
         string += "<b>Start:</b> " + starts[i] + "<br>";
         string += "<b>End:</b> " + ends[i] + "<br>";
@@ -92,3 +92,11 @@ function gotData(data) {
 function errData(err) {
     console.log(error);
 }
+
+// Function capitalizes the first letter and makes it plural when needed
+function formatFood(food) {
+    if (food.valueOf() == "burger" || food.valueOf() == "taco" || food.valueOf() == "hotdog" || food.valueOf() == "snack") food += "s";
+    if (food.valueOf() == "sandwich") food += "es";
+    food = food.charAt(0).toUpperCase() + food.slice(1); // capitalizes letter
+    return food;
+} // formatFood
