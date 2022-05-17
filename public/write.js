@@ -1,8 +1,29 @@
+var firebaseConfig = {
+    apiKey: "AIzaSyDOs0oemIBzgsVvsS-mzWSSQET6SuHU_Nc",
+    authDomain: "free-food-uga-97846.firebaseapp.com",
+    databaseURL: "https://free-food-uga-97846-default-rtdb.firebaseio.com",
+    projectId: "free-food-uga-97846",
+    storageBucket: "free-food-uga-97846.appspot.com",
+    messagingSenderId: "538379971058",
+    appId: "1:538379971058:web:d69e20fe412440efc9636b",
+    measurementId: "G-6C4FBTMGM1"
+};
+
+firebase.initializeApp(firebaseConfig);  
 
 // Default valuesfun
 var count = 0;
 var latitude = 50;
 var longitude = 50;
+
+function checkUser() {
+    const user = firebase.auth().currentUser;
+    if (user) {
+        writeMarker();
+    } else {
+        signin_page();
+    }
+}
 
 function writeMarker() {
     if (count == 0) {

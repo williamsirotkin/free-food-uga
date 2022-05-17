@@ -7,6 +7,9 @@
         <link rel="stylesheet" href="CSS/sidenav.css">
         <link rel="stylesheet" href="CSS/homepage.css">
         <link rel="stylesheet" href="CSS/map.css">
+        <script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-database.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-auth.js"></script>
         <script src="sidenav.js"></script>
         <script src="map.js"></script>
         <script src="write.js"></script>
@@ -16,8 +19,6 @@
     </head>
     <body>
         <br><br>
-        <script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-app.js"></script>
-        <script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-database.js"></script>
         <script>
             // Import the functions you need from the SDKs you need
             // TODO: Add SDKs for Firebase products that you want to use
@@ -25,19 +26,6 @@
   
             // Your web app's Firebase configuration
             // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-            var firebaseConfig = {
-                apiKey: "AIzaSyDOs0oemIBzgsVvsS-mzWSSQET6SuHU_Nc",
-                authDomain: "free-food-uga-97846.firebaseapp.com",
-                databaseURL: "https://free-food-uga-97846-default-rtdb.firebaseio.com",
-                projectId: "free-food-uga-97846",
-                storageBucket: "free-food-uga-97846.appspot.com",
-                messagingSenderId: "538379971058",
-                appId: "1:538379971058:web:d69e20fe412440efc9636b",
-                measurementId: "G-6C4FBTMGM1"
-            };
-            firebase.initializeApp(firebaseConfig);
-            
-            
             var hours = new Date().getHours();
             var minutes = new Date().getMinutes();
             if (hours % 23 == 0 && minutes == 59) {
@@ -195,7 +183,7 @@
             <input type="text" id="additionalType" name="additionalType">
             <br><br>
 
-            <button type="button" onclick="writeMarker()">Add Location</button>
+            <button type="button" onclick="checkUser()">Add Location</button>
         </div>
         <span style="font: size 18px; margin: 10px; cursor:pointer" onclick="openNav()">&#9776; Click Here To Add Food To Map</span>
         <br><br><br>
