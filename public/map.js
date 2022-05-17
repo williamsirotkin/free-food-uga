@@ -1,22 +1,27 @@
 let markers = [];
 let longitudes = []
 let latitudes = [];
+let creators = [];
 let foods = [];
 let buildings = [];
 let durations = [];
 let creationTimes = [];
 let events = [];
 let additionals = [];
+let pictures = [];
 var map;
+
 function initMap() {
     longitudes = [];
     latitudes = [];
+    creators = [];
     buildings = [];
     foods = [];
     durations = [];
     creationTimes = [];
     events = [];
     additionals = [];
+    pictures = [];
     readFromDatabase()
 
     const ugaLocation = { lat: 33.9480, lng: -83.3773}; // The location of UGA Centered 
@@ -39,9 +44,10 @@ function initMap() {
         infoWindowContent += "<b>Ends At:</b> " + getEndTimeFromDuration(durations[i], creationTimes[i]) + "<br>";
         infoWindowContent += "<b>Event:</b> " + events[i] + "<br>";
         infoWindowContent += "<b>Comments:</b> " + additionals[i];
+        infoWindowContent += "<br>";
 
         let infowindow = new google.maps.InfoWindow({
-            content: infoWindowContent
+            content: infoWindowContent + pictures[i]
         });
 
         let marker = new google.maps.Marker({
@@ -81,6 +87,8 @@ function gotData(data) {
         var k = keys[i];
         latitudes.push(stuff[k].Latitude);
         longitudes.push(stuff[k].Longitude);
+        creators.push(stuff[k].Creator);
+        pictures.push(stuff[k].Picture);
         buildings.push(stuff[k].Building);
         durations.push(stuff[k].Duration);
         creationTimes.push(stuff[k].Creation);
@@ -113,12 +121,13 @@ function getEndTimeFromDuration(duration, date) {
     
     if (hours > 23) hours -= 24;
     if (hours == 0) hours = 12;
+    if (hours > 12) hours -= 12;
     var endTimeStr = "";
     endTimeStr += hours;
     endTimeStr += ":";
     if (minutes < 10) endTimeStr += "0";
     endTimeStr += minutes;
-    if (hours <= 11) endTimeStr += " AM";
+    if (parseInt(date.substring(0, 2)) <= 11) endTimeStr += " AM";
     else endTimeStr += " PM";
     console.log(endTimeStr);
     return endTimeStr;

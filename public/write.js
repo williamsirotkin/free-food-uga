@@ -15,31 +15,46 @@ firebase.initializeApp(firebaseConfig);
 var count = 0;
 var latitude = 50;
 var longitude = 50;
+let emailSet = new Set();
 
 function checkUser() {
     const user = firebase.auth().currentUser;
     if (user) {
-        writeMarker();
+        if (userHasNoMarkers(user)) { const userEmail = firebase.auth().currentUser.email; writeMarker(userEmail); }
+        else console.log("You have already placed a marker");
     } else {
         signin_page();
     }
 }
 
+function userHasNoMarkers(user) {
+    if (emailSet.has(user.email)) return false;
+    return true;
+} 
+
 function writeMarker() {
     if (count == 0) {
-        getLat("Nothing")
+        getLat("Nothing", null)
     } 
     var select = document.getElementById('locationInput');
     var building = select.options[select.selectedIndex].value;
-    getLat(building);
+    getLat(building, null);
+}
+
+function writeMarker(userEmail) {
+    if (count == 0) {
+        getLat("Nothing", userEmail)
+    } 
+    var select = document.getElementById('locationInput');
+    var building = select.options[select.selectedIndex].value;
+    getLat(building, userEmail);
 }
 
 function signin_page() {
     window.location.href = "signin2.html";
 }
 
-async function getLat(building) {
-    console.log(count);
+async function getLat(building, userEmail) {
     if (count == 0 || building == "Nothing") {
         count++;
         var firebaseRef = firebase.database().ref('Marker');
@@ -58,6 +73,10 @@ async function getLat(building) {
                 var eventType = document.getElementById('eventType').value;
                 var additional = document.getElementById('additionalType').value;
                 var dateCreated = new Date().toString();
+                var creator;
+                creator = userEmail; 
+                emailSet.add(userEmail);
+                var picture = "Images/dawg.png";
                 var formattedDateCreated = dateCreated.substring(dateCreated.indexOf(":") - 2, dateCreated.indexOf(":") + 3);
                 var data = {
                     Building : building,
@@ -66,6 +85,8 @@ async function getLat(building) {
                     Additional : additional,
                     Latitude : latitude,
                     Longitude: longitude,
+                    Picture: picture,
+                    Creator: creator,
                     Duration: duration,
                     Creation: formattedDateCreated
                 }
