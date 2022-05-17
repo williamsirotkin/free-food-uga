@@ -116,7 +116,7 @@ function getEndTimeFromDuration(duration, date) {
     var minutes = parseInt(date.substring(3, 5));
     console.log("Hello: " + duration.charAt(0));
     if (duration.charAt(0) != '0' && parseInt(duration) >= 1) hours += parseInt(duration);
-    else if (minutes <= 30) minutes += 30;
+    else if (minutes < 30) minutes += 30;
     else { hours += 1; minutes -= 30; }
     
     if (hours > 23) hours -= 24;

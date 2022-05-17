@@ -3,7 +3,7 @@
 * Opening it.
 */
 function openNav() {
-    document.getElementById("sidenav").style.width = "250px";
+    document.getElementById("sidenav").style.width = "225px";
 }
 
 /*

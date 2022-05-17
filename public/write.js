@@ -76,7 +76,7 @@ async function getLat(building, userEmail) {
                 var creator;
                 creator = userEmail; 
                 emailSet.add(userEmail);
-                var picture = "Images/dawg.png";
+                var picture = document.getElementById('picture').value;
                 var formattedDateCreated = dateCreated.substring(dateCreated.indexOf(":") - 2, dateCreated.indexOf(":") + 3);
                 var data = {
                     Building : building,

@@ -32,7 +32,7 @@
             if (hours % 23 == 0 && minutes == 59) {
                 deleteFromDatabase();
             }
-            
+        
         </script>
 
         <!-- Horizontal Nav Bar -->
@@ -55,12 +55,12 @@
         <div id="sidenav" class="sidenav">
             <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;
             </a>
-            <h2>Add Location</h2>
+            <h2>&nbspAdd Food To Map!</h2>
 
             <!-- Adding Location -->
-            <label for="locationInput">Location: </label>
+            <label for="locationInput">&nbspLocation:<br> </label>
             <select id="locationInput" name="locationInput">
-                <option value="Aderhold">Aderhold</option>
+                <option value="Aderhold">Aderhold&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</option>
                 <option value="Amos">Amos</option>
                 <option value="Baldwin">Baldwin Hall</option>
                 <option value="Barrow">Barrow Hall</option>
@@ -73,38 +73,38 @@
                 <option value="1516">Building 1516</option>
                 <option value="Caldwell">Caldwell Hall</option>
                 <option value="Chandler">Candler Hall</option>
-                <option value="Carnegie">Carnegie Library Museum</option>
-                <option value="Central Food">Central Food Storage</option>
+                <option value="Carnegie">Carnegie Library</option>
+                <option value="Central Food">Food Storage</option>
                 <option value="Ceramics">Ceramics</option>
                 <option value="Chapel">Chapel</option>
                 <option value="Chemistry">Chemistry</option>
-                <option value="Clark Howell">Clark Howell Hall</option>
-                <option value="Vet Med 1">Veterinary Medicine</option>
+                <option value="Clark Howell">Clark Howell</option>
+                <option value="Vet Med 1">Veterinary Med</option>
                 <option value="Community">Community Center</option>
                 <option value="Conner Hall">Conner Hall</option>
                 <option value="Correll">Correll Hall</option>
                 <option value="Creswell">Creswell Hall</option>
-                <option value="Life Sciences">Davison Life Sciences</option>
+                <option value="Life Sciences">Life Sciences</option>
                 <option value="Dawson">Dawson Hall</option>
-                <option value="Demos">Demosthenian Hall</option>
+                <option value="Demos">Demosthenian</option>
                 <option value="Denmark">Denmark Hall</option>
                 <option value="Driftmier">Driftmier </option>
                 <option value="DW Brooks Mall">DW Brooks Mall</option>
                 <option value="Ecology">Ecology</option>
-                <option value="Environmental Health">Environmental Health</option>
-                <option value="Fine Arts">Fine Arts Building</option>
-                <option value="Food Science">Food Science Building</option>
+                <option value="Environmental Health">Environmental</option>
+                <option value="Fine Arts">Fine Arts</option>
+                <option value="Food Science">Food Science</option>
                 <option value="Franklin">Franklin House</option>
-                <option value="Geography and Geology">Geography & Geology</option>
+                <option value="Geography and Geology">Geog & Geol</option>
                 <option value="Busbee">Busbee Hall</option>
-                <option value="Museum of art">Georgia Museum Art</option>
+                <option value="Museum of art">Georgia Art</option>
                 <option value="Gilbert">Gilbert Hall</option>
                 <option value="Hardman">Hardman Hall</option>
                 <option value="Hill Hall">Hill Hall</option>
                 <option value="HHSOM">Hugh Hodgson Music</option>
                 <option value="HR">Human Resources</option>
                 <option value="Ivester">Ivester Hall</option>
-                <option value="Jackson St.">Jackson St. Building</option>
+                <option value="Jackson St.">Jackson St.</option>
                 <option value="Joe Frank">ECV Dining</option>
                 <option value="Journalism">Journalism</option>
                 <option value="Lamar Dodd">Lamar Dodd</option>
@@ -120,7 +120,7 @@
                 <option value="Military Building ROTC">ROTC Building</option>
                 <option value="Milledge Hall">Milledge Hall</option>
                 <option value="MLC">MLC</option>
-                <option value="Miller Plant Science">Miller Plant Sci</option>
+                <option value="Miller Plant Science">Plant Science</option>
                 <option value="Moore College">Moore College</option>
                 <option value="Morris Hall">Morris Hall</option>
                 <option value="Myers Hall">Myers Hall</option>
@@ -151,9 +151,9 @@
             </select><br>
             
             <!-- Adding Food By Type -->
-            <label for="food">Food Type: </label>
+            <label for="food">&nbspFood: <br></label>
             <select name="foodType" id="foodType">
-                <option value="burger">Burger</option>
+                <option value="burger">Burger&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</option>
                 <option value="candy">Candy</option>
                 <option value="coffee">Coffee</option>
                 <option value="dessert">Dessert</option>
@@ -169,22 +169,27 @@
             </select>
             <br>
 
-            <label for="duration">Duration: </label>
+            <label for="duration">&nbspDuration: &nbsp&nbsp&nbsp&nbsp<br></label>
             <select name="duration" id="duration">
-                <option value="0.5">30 min</option>
+                <option value="0.5">30 min&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</option>
                 <option value="1">1 hour</option>
                 <option value="2">2 hours</option>
                 <option value="3">3 hours</option>
             </select>
             <br>
 
-            <label for="eventType">Event (Optional)</label>
+            <label for="eventType">&nbspEvent (Optional)</label>
             <input type="text" id="eventType" name="eventType"><br>
-            <label for="additionalType">Additional Info (Optional)</label>
+            <label for="additionalType">&nbspAdditional Info (Optional)</label>
             <input type="text" id="additionalType" name="additionalType">
             <br><br>
+            <label for="picture">&nbspTake A Picture Of The Food!</label><br>
+            <input type="file" id = "picture" accept="image/*" capture="camera">
+           <!-- <input type="image" src="" id = "picture" name = "picture" width="100" height="70">  -->
+            <br><br><br>
 
-            <button type="button" onclick="checkUser()">Add Location</button>
+
+            <button type="button" onclick="checkUser()" style="height:40px; width:200px;">Add Food To Map</button>
         </div>
         <span style="font: size 18px; margin: 10px; cursor:pointer" onclick="openNav()">&#9776; Click Here To Add Food To Map</span>
         <br><br><br>
