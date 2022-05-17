@@ -37,9 +37,10 @@
             };
             firebase.initializeApp(firebaseConfig);
             
+            
             var hours = new Date().getHours();
             var minutes = new Date().getMinutes();
-            if (hours % 2 == 0 && minutes == 0) {
+            if (hours % 23 == 0 && minutes == 59) {
                 deleteFromDatabase();
             }
             
@@ -178,11 +179,16 @@
                 <option value="taco">Taco</option>
             </select>
             <br>
- 
-            <label for="startTime">Start Time</label>
-            <input type="text" id="startTime" name="startTime"><br>
-            <label for="endTime">End Time</label>
-            <input type="text" id="endTime" name="endTime"><br>
+
+            <label for="duration">Duration: </label>
+            <select name="duration" id="duration">
+                <option value="0.5">30 min</option>
+                <option value="1">1 hour</option>
+                <option value="2">2 hours</option>
+                <option value="3">3 hours</option>
+            </select>
+            <br>
+
             <label for="eventType">Event (Optional)</label>
             <input type="text" id="eventType" name="eventType"><br>
             <label for="additionalType">Additional Info (Optional)</label>
@@ -191,11 +197,7 @@
 
             <button type="button" onclick="writeMarker()">Add Location</button>
         </div>
-<<<<<<< Updated upstream
-        <span style="font: size 18px;cursor:pointer" onclick="openNav()">&#9776; <b>CLICK HERE TO ADD FOOD TO THE MAP</b></span>
-=======
         <span style="font: size 18px; margin: 10px; cursor:pointer" onclick="openNav()">&#9776; Click Here To Add Food To Map</span>
->>>>>>> Stashed changes
         <br><br><br>
         <div id="map"></div>
         <script
