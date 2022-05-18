@@ -119,6 +119,10 @@ function getEndTimeFromDuration(duration, date) {
     else if (minutes < 30) minutes += 30;
     else { hours += 1; minutes -= 30; }
     
+    if (minutes > 45) { minutes = 0; hours = hours + 1;}
+    else if (minutes > 30) minutes = 45;
+    else if (minutes > 15) mintues = 30;
+    else if (minutes > 0) minutes = 15;
     if (hours > 23) hours -= 24;
     if (hours == 0) hours = 12;
     if (hours > 12) hours -= 12;
