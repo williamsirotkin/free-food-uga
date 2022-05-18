@@ -127,9 +127,13 @@ function getEndTimeFromDuration(duration, date) {
     endTimeStr += ":";
     if (minutes < 10) endTimeStr += "0";
     endTimeStr += minutes;
-    if (parseInt(date.substring(0, 2)) <= 11) endTimeStr += " AM";
+    var dur; 
+    if (duration.charAt(0) == '0') dur = 0.5;
+    else dur = parseInt(duration);
+    if (timeHash(parseInt(date.substring(0, 2)), parseInt(date.substring(3, 5)), parseInt(duration)) < 720 || timeHash(parseInt(date.substring(0, 2)), parseInt(date.substring(3, 5)), dur) > 1440) endTimeStr += " AM";
+    //console.log(timeHash(parseInt(date.substring(0, 2)), parseInt(date.substring(3, 5)), parseInt(duration)));
     else endTimeStr += " PM";
-    console.log(endTimeStr);
+    //console.log(endTimeStr);
     return endTimeStr;
 } // getEndTimeFromDuration
 
