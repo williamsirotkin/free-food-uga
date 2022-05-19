@@ -79,14 +79,22 @@ async function getLat(building) {
                 /*
                 creator = userEmail; 
                 if (userEmail) emailSet.add(userEmail);
-                    */
-                if (document.getElementById('picture').files[0]) {
+                    
                     var pic = document.createElement('image');
                     const picInput = document.getElementById('picture').files[0];
                     pic.src = URL.createObjectURL(picInput);
-                    var picture = pic.src;
-                }
-
+                    */
+                    //var picture = pic.src;
+                var picInput = "";
+                var picture = "";
+                if (document.getElementById('picture')) picInput = document.getElementById('picture').files[0];
+                getBase64(picInput, function(base64Data){
+                    console.log("1: " + picture);
+                    picture = base64Data;
+                    console.log("2 : " + picture);
+                    console.log("3: " + picture);
+                    
+                console.log("eh: " + picture);
                 var formattedDateCreated = dateCreated.substring(dateCreated.indexOf(":") - 2, dateCreated.indexOf(":") + 3);
                 var data = {
                     Building : building,
@@ -100,14 +108,26 @@ async function getLat(building) {
                     Duration: duration,
                     Creation: formattedDateCreated
                 }
+                //console.log("eh2: " + picture);
                 var firebaseRef = firebase.database().ref('Marker');
                 if (building != "Aderhold") {
                     markers.push(data);
                     firebaseRef.push(data);
                 }
                 initMap();
+                });
             })
         });
+    }
+}
+
+function getBase64 (file, callback) {
+    if (file) {
+        const reader = new FileReader();
+        reader.addEventListener('load', () => callback(reader.result));
+        reader.readAsDataURL(file);
+    } else {
+        callback();
     }
 }
 

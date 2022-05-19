@@ -31,7 +31,7 @@ function initMap() {
       zoom: 15,
       center: ugaLocation,
     }); 
-    console.log(latitudes[0]);
+
     for (let i = 0; i < latitudes.length; i++) {
         console.log(isDurationOver(durations[i], creationTimes[i]));
         //if (isDurationOver(durations[i], creationTimes[i])) continue;
@@ -39,7 +39,7 @@ function initMap() {
         if (!additionals[i]) additionals[i] = "";
         let myLatLng = new google.maps.LatLng(latitudes[i], longitudes[i]); 
         var infoWindowContent = "<center><b>Free</b> " + formatFood(foods[i]).bold() + "<b> at </b>" + buildings[i].bold() + "<b>!</b></center>";
-        var temp = "<style> img { height = 190px; width: 120px; float: right; padding: 3px;}p {width: 60%;float: left;}</style>"
+        var temp = "<style> img { height = 190px; width: 120px; float: right; padding: 3px;}p {width: 70%;float: left;}</style>"
         temp += "<img src=" + pictures[i] + ">";
         /*
         temp += "<img src=" + pictures[i] + "><p>" 
@@ -55,7 +55,8 @@ function initMap() {
         infoWindowContent += "<br></p>";
         infoWindowContent += "<br><a href=https://www.google.com/maps/dir/?api=1&destination=" + latitudes[i] + '%2C' + longitudes[i] + "&travelmode=walking" + ">Directions</a>";
         infoWindowContent += " &nbsp<a href=https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=" + latitudes[i] + "%2C" + longitudes[i] + "&heading=-45&pitch=38&fov=80" + ">Street View</a>";
-        if (additionals[i]) infoWindow += "<br>" + additionals[i] + "<br>";
+        
+        if (additionals[i]) infoWindowContent += "<br>" + additionals[i] + "<br>";
         let infowindow = new google.maps.InfoWindow({
             content: infoWindowContent
         });
