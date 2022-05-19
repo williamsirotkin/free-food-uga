@@ -15,10 +15,12 @@ firebase.initializeApp(firebaseConfig);
 var count = 0;
 var latitude = 50;
 var longitude = 50;
-let emailSet = new Set();
+//let emailSet = new Set();
 
 function checkUser() {
     const user = firebase.auth().currentUser;
+    writeMarker();
+    return;
     if (user) {
         if (userHasNoMarkers(user)) { const userEmail = firebase.auth().currentUser.email; writeMarker(userEmail); }
         else console.log("You have already placed a marker");
@@ -38,9 +40,9 @@ function writeMarker() {
     } 
     var select = document.getElementById('locationInput');
     var building = select.options[select.selectedIndex].value;
-    getLat(building, null);
+    getLat(building);
 }
-
+/*
 function writeMarker(userEmail) {
     if (count == 0) {
         getLat("Nothing", userEmail)
@@ -49,12 +51,12 @@ function writeMarker(userEmail) {
     var building = select.options[select.selectedIndex].value;
     getLat(building, userEmail);
 }
-
+*/
 function signin_page() {
     window.location.href = "signin2.html";
 }
 
-async function getLat(building, userEmail) {
+async function getLat(building) {
     if (count == 0 || building == "Nothing") {
         count++;
         var firebaseRef = firebase.database().ref('Marker');
@@ -73,10 +75,18 @@ async function getLat(building, userEmail) {
                 var eventType = document.getElementById('eventType').value;
                 var additional = document.getElementById('additionalType').value;
                 var dateCreated = new Date().toString();
-                var creator;
+                var creator = "";
+                /*
                 creator = userEmail; 
-                emailSet.add(userEmail);
-                var picture = document.getElementById('picture').value;
+                if (userEmail) emailSet.add(userEmail);
+                    */
+                if (document.getElementById('picture').files[0]) {
+                    var pic = document.createElement('image');
+                    const picInput = document.getElementById('picture').files[0];
+                    pic.src = URL.createObjectURL(picInput);
+                    var picture = pic.src;
+                }
+
                 var formattedDateCreated = dateCreated.substring(dateCreated.indexOf(":") - 2, dateCreated.indexOf(":") + 3);
                 var data = {
                     Building : building,
