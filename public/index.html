@@ -55,13 +55,15 @@
         <div id="sidenav" class="sidenav">
             <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;
             </a>
-
+    
             <h2>&nbspAdd Food To Map!</h2>
-
-            <!-- Adding Location -->
-            <label for="locationInput">&nbspLocation:<br> </label>
+            <!--Adding Location
+            <label for="locInput">&nbspUse Your Location (Recommended):&nbsp </label>
+            <input type="checkbox" name="loc" value="loc"> -->
+            <!-- Adding Building -->
+            <label for="locationInput">&nbspBuilding:<br> </label>
             <select id="locationInput" name="locationInput">
-                <option value="Aderhold">Aderhold&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</option>
+                <option value="Aderhold">Select Building&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</option>
                 <option value="Amos">Amos</option>
                 <option value="Baldwin">Baldwin Hall</option>
                 <option value="Barrow">Barrow Hall</option>
@@ -154,7 +156,8 @@
             <!-- Adding Food By Type -->
             <label for="food">&nbspFood: <br></label>
             <select name="foodType" id="foodType">
-                <option value="burger">Burger&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</option>
+                <option value="Select Food">Select Food&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</option>
+                <option value="burger">Burger</option>
                 <option value="candy">Candy</option>
                 <option value="coffee">Coffee</option>
                 <option value="dessert">Dessert</option>
@@ -172,7 +175,8 @@
 
             <label for="duration">&nbspDuration: &nbsp&nbsp&nbsp&nbsp<br></label>
             <select name="duration" id="duration">
-                <option value="0.5">30 min&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</option>
+                <option value="0.5">Select Duration&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</option>
+                <option value="0.5">30 min</option>
                 <option value="1">1 hour</option>
                 <option value="2">2 hours</option>
                 <option value="3">3 hours</option>
@@ -184,7 +188,7 @@
             <label for="additionalType">&nbspAdditional Info: <br> </label>
             <input type="text" id="additionalType" name="additionalType">
             <br><br>
-            <label for="picture"><b>&nbspTake A Picture Of The Food!</b></label><br>
+            <label for="picture">&nbspTake A Picture Of The Food!</label><br>
             <input type="file" id = "picture" accept="image/*" width = 10% capture="environment">
             <!-- <input type="image" src="" id = "picture" name = "picture" width="100" height="70">  -->
             <br>
@@ -229,7 +233,7 @@
        document.getElementById('userDetails').innerHTML = `
          <img src="${user.photoURL}" style="width:15%"> 
          <br>
-         ✅ ${user.email} </p>
+          ${user.email} ✅</p>
        `
      }
  

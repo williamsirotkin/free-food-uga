@@ -11,6 +11,16 @@ let additionals = [];
 let pictures = [];
 var map;
 
+function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+    infoWindow.setPosition(pos);
+    infoWindow.setContent(
+      browserHasGeolocation
+        ? "Error: The Geolocation service failed."
+        : "Error: Your browser doesn't support geolocation."
+    );
+    infoWindow.open(map);
+  }
+
 function initMap() {
     longitudes = [];
     latitudes = [];
@@ -32,31 +42,56 @@ function initMap() {
       center: ugaLocation,
     }); 
 
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            const pos = {
+              lat: position.coords.latitude - 0.096883,
+              lng: position.coords.longitude + 1.04056,
+            };
+            let infowindow = new google.maps.InfoWindow({
+                content: "Your Location"
+            });
+            let marker = new google.maps.Marker({
+                position: pos,
+                map: map,
+                icon: "Images/user.png"
+            });
+            map.setCenter(pos);
+            marker.addListener("click", () => {
+                infowindow.open({
+                    anchor: marker,
+                    map,
+                    shouldFocus: false,
+                });
+            });
+          },
+          () => {
+            handleLocationError(true, infoWindow, map.getCenter());
+          }
+        );
+      } else {
+        // Browser doesn't support Geolocation
+        handleLocationError(false, infoWindow, map.getCenter());
+      }
+
     for (let i = 0; i < latitudes.length; i++) {
         console.log(isDurationOver(durations[i], creationTimes[i]));
         //if (isDurationOver(durations[i], creationTimes[i])) continue;
         if (!events[i]) events[i] = "";
         if (!additionals[i]) additionals[i] = "";
         let myLatLng = new google.maps.LatLng(latitudes[i], longitudes[i]); 
-        var infoWindowContent = "<center><b>Free</b> " + formatFood(foods[i]).bold() + "<b> at </b>" + buildings[i].bold() + "<b>!</b></center>";
+        var infoWindowContent = "<center><b>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspFree</b> " + formatFood(foods[i]).bold() + "<b> at </b>" + buildings[i].bold() + "<b>!&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</b></center>";
         var temp = "<style> img { height = 190px; width: 120px; float: right; padding: 3px;}p {width: 70%;float: left;}</style>"
         temp += "<img src=" + pictures[i] + ">";
-        /*
-        temp += "<img src=" + pictures[i] + "><p>" 
-        if (events[i]) temp += events[i] + "<br>";
-        temp += "Ends At: " + getEndTimeFromDuration(durations[i], creationTimes[i]).bold() + "<br>";
-        temp += "<br></p>";
-        */
-        /*
-        if (pictures[i]) infoWindowContent += "<div><img src=" + pictures[i] + " width = 40%></div>"; */
         infoWindowContent += temp;
-        if (events[i]) infoWindowContent += events[i] + "<br>";
-        infoWindowContent += "Ends At: " + getEndTimeFromDuration(durations[i], creationTimes[i]).bold() + "<br>";
-        infoWindowContent += "<br></p>";
+        infoWindowContent += "Event: <br>" + events[i].bold() + "<br><br>";
+        infoWindowContent += "Time: <br>" + getStartTimeFromCreationTime(creationTimes[i]).bold() + "<b>-</b>" + getEndTimeFromDuration(durations[i], creationTimes[i]).bold() + "<br>";
+        infoWindowContent += "<br>" + additionals[i] + "<br>";
         infoWindowContent += "<br><a href=https://www.google.com/maps/dir/?api=1&destination=" + latitudes[i] + '%2C' + longitudes[i] + "&travelmode=walking" + ">Directions</a>";
         infoWindowContent += " &nbsp<a href=https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=" + latitudes[i] + "%2C" + longitudes[i] + "&heading=-45&pitch=38&fov=80" + ">Street View</a>";
+        infoWindowContent += "</p>";
         
-        if (additionals[i]) infoWindowContent += "<br>" + additionals[i] + "<br>";
         let infowindow = new google.maps.InfoWindow({
             content: infoWindowContent
         });
@@ -167,3 +202,20 @@ function isDurationOver(duration, creationTime) {
 function timeHash(hours, minutes, duration) {
     return (hours + duration) * 60 + minutes;
 }
+
+function getStartTimeFromCreationTime(time) {
+    var hours = parseInt(time.substring(0, 2));
+    var minutes = parseInt(time.substring(3, 5));
+    var amOrPm = "";
+    if (minutes > 45) { minutes = 0; hours = hours + 1; }
+    else if (minutes > 30) minutes = 45;
+    else if (minutes > 15) minutes = 30;
+    else if (minutes > 0) minutes = 15;
+
+    if (hours == 24) hours = 0;
+    
+    if (hours >= 12) { amOrPm = "PM"; hours -= 12; }
+    else amOrPm = "AM";
+    if (minutes == 0) return hours + ":" + "00" + amOrPm;
+    return hours + ":" + minutes + amOrPm;
+} 
