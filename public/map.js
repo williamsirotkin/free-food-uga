@@ -3,6 +3,7 @@ let longitudes = []
 let latitudes = [];
 let creators = [];
 let foods = [];
+let likes = [];
 let buildings = [];
 let durations = [];
 let creationTimes = [];
@@ -27,6 +28,7 @@ function initMap() {
     creators = [];
     buildings = [];
     foods = [];
+    likes = [];
     durations = [];
     creationTimes = [];
     events = [];
@@ -46,8 +48,10 @@ function initMap() {
         navigator.geolocation.getCurrentPosition(
           (position) => {
             const pos = {
-              lat: position.coords.latitude - 0.096883,
-              lng: position.coords.longitude + 1.04056,
+                lat: 33.9480,
+                lng: -83.3773
+    // uncomment when ready         lat: position.coords.latitude,
+     //         lng: position.coords.longitude,
             };
             let infowindow = new google.maps.InfoWindow({
                 content: "Your Location"
@@ -81,17 +85,19 @@ function initMap() {
         if (!events[i]) events[i] = "";
         if (!additionals[i]) additionals[i] = "";
         let myLatLng = new google.maps.LatLng(latitudes[i], longitudes[i]); 
-        var infoWindowContent = "<center><b>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspFree</b> " + formatFood(foods[i]).bold() + "<b> at </b>" + buildings[i].bold() + "<b>!&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</b></center>";
-        var temp = "<style> img { height = 190px; width: 120px; float: right; padding: 3px;}p {width: 70%;float: left;}</style>"
+        var infoWindowContent = "<center><b>Free</b> " + formatFood(foods[i]).bold() + " <b>at</b> " + nameBuilding(buildings[i]).bold() + "<b>!<br><br></b></center>";
+        var temp = "<style> img { height = 160px; width: 115px; float: right; padding: 2px;}p {width: 70%;float: left;}</style>"
         temp += "<img src=" + pictures[i] + ">";
         infoWindowContent += temp;
         infoWindowContent += "Event: <br>" + events[i].bold() + "<br><br>";
-        infoWindowContent += "Time: <br>" + getStartTimeFromCreationTime(creationTimes[i]).bold() + "<b>-</b>" + getEndTimeFromDuration(durations[i], creationTimes[i]).bold() + "<br>";
-        infoWindowContent += "<br>" + additionals[i] + "<br>";
-        infoWindowContent += "<br><a href=https://www.google.com/maps/dir/?api=1&destination=" + latitudes[i] + '%2C' + longitudes[i] + "&travelmode=walking" + ">Directions</a>";
+        infoWindowContent += "Time: <br>" + getStartTimeFromCreationTime(creationTimes[i]).bold() + "<b>-<br></b>" + getEndTimeFromDuration(durations[i], creationTimes[i]).bold() + "<br>";
+        if (additionals[i]) infoWindowContent += "<br>" + additionals[i] + "<br><br>";
+        else infoWindowContent += "<br><br><br><br><br><br>";
+        infoWindowContent += "<br><a href=https://www.google.com/maps/dir/?api=1&destination=" + latitudes[i] + '%2C' + longitudes[i] + "&travelmode=walking" + "><br>Directions</a>";
         infoWindowContent += " &nbsp<a href=https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=" + latitudes[i] + "%2C" + longitudes[i] + "&heading=-45&pitch=38&fov=80" + ">Street View</a>";
-        infoWindowContent += "</p>";
-        
+        var inputStr = buildings[i] + ', ' + foods[i] + ', ' + events[i] + ', ' + additionals[i] + ', ' + latitudes[i] + ', ' + longitudes[i] + ', ' + pictures[i] + ', ' + creators[i] + ', ' + likes[i] + ', ' + durations[i] + ', ' + creationTimes[i];
+        infoWindowContent += "&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp" +
+               "<button onclick = f(" + 'hello' + ") type='button'> <img style = 'width: 10px' src = 'Images/like.png'></button> " + 12;
         let infowindow = new google.maps.InfoWindow({
             content: infoWindowContent
         });
@@ -139,6 +145,7 @@ function gotData(data) {
         durations.push(stuff[k].Duration);
         creationTimes.push(stuff[k].Creation);
         events.push(stuff[k].Event);
+        likes.push(stuff[k].Likes);
         additionals.push(stuff[k].Additional);
         foods.push(stuff[k].Food);
     }
@@ -167,7 +174,7 @@ function getEndTimeFromDuration(duration, date) {
     
     if (minutes > 45) { minutes = 0; hours = hours + 1;}
     else if (minutes > 30) minutes = 45;
-    else if (minutes > 15) mintues = 30;
+    else if (minutes > 15) minutes = 30;
     else if (minutes > 0) minutes = 15;
     if (hours > 23) hours -= 24;
     if (hours == 0) hours = 12;
@@ -214,8 +221,21 @@ function getStartTimeFromCreationTime(time) {
 
     if (hours == 24) hours = 0;
     
-    if (hours >= 12) { amOrPm = "PM"; hours -= 12; }
-    else amOrPm = "AM";
+    if (hours >= 12) { amOrPm = " PM"; hours -= 12; }
+    else amOrPm = " AM";
     if (minutes == 0) return hours + ":" + "00" + amOrPm;
     return hours + ":" + minutes + amOrPm;
 } 
+
+function nameBuilding(b) {
+    if (strcmp(b, "Amos") == 0 || strcmp(b, "Baldwin") == 0 || strcmp(b, "Barrow") == 0 || 
+    strcmp(b, "Benson") == 0 || strcmp(b, "Brooks") == 0 || strcmp(b, "Brown") == 0 ||
+    strcmp(b, "Dawson") == 0 || strcmp(b, "Caldwell") == 0 || strcmp(b, "Chandler") == 0 || 
+    strcmp(b, "Conner") == 0 || strcmp(b, "Correll") == 0 || strcmp(b, "Denmark") == 0 || 
+    strcmp(b, "Busbee") == 0 || strcmp(b, "Gilbert") == 0 || strcmp(b, "Hardman") == 0 || 
+    strcmp(b, "Hardman") == 0)
+    return b + " Hall";
+    return b;
+
+}
+

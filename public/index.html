@@ -56,14 +56,18 @@
             <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;
             </a>
     
-            <h2>&nbspAdd Food To Map!</h2>
-            <!--Adding Location
-            <label for="locInput">&nbspUse Your Location (Recommended):&nbsp </label>
-            <input type="checkbox" name="loc" value="loc"> -->
-            <!-- Adding Building -->
-            <label for="locationInput">&nbspBuilding:<br> </label>
+            <style>
+                h2 { 
+                    display: inline;
+                }
+                </style>
+            <h2> &nbspAdd Food To Map!</h2>
+            <i>&nbsp*All Fields Are Mandatory<br><br></i>
+
+            <!-- Adding Location -->
+            <label for="locationInput">&nbspLocation:<br> </label>
             <select id="locationInput" name="locationInput">
-                <option value="Aderhold">Select Building&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</option>
+                <option value="Select Building">Select Location&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</option>
                 <option value="Amos">Amos</option>
                 <option value="Baldwin">Baldwin Hall</option>
                 <option value="Barrow">Barrow Hall</option>
@@ -152,7 +156,6 @@
                 <option value="Wildlife Health">Wildlife Health</option>
                 <option value="Wright Hall">Wright Hall</option>
             </select><br>
-            
             <!-- Adding Food By Type -->
             <label for="food">&nbspFood: <br></label>
             <select name="foodType" id="foodType">
@@ -175,7 +178,7 @@
 
             <label for="duration">&nbspDuration: &nbsp&nbsp&nbsp&nbsp<br></label>
             <select name="duration" id="duration">
-                <option value="0.5">Select Duration&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</option>
+                <option value="Select Duration">Select Duration&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</option>
                 <option value="0.5">30 min</option>
                 <option value="1">1 hour</option>
                 <option value="2">2 hours</option>
@@ -267,7 +270,7 @@
    <br>
 
 
-   <button id="login" style = "width:220px;" onclick = "checkUser()"><h2>Add Food To Map</h2></button>
+   <button id="login" style = "width:220px;" onclick = "checkUser()"><h3>Add To Map</h3></button>
         </div>
         <span style="font: size 18px; margin: 10px; cursor:pointer" onclick="openNav()">&#9776; Click Here To Add Food To Map</span>
         <br><br>

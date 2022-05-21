@@ -19,7 +19,7 @@ var longitude = 50;
 
 function checkUser() {
     const user = firebase.auth().currentUser;
-    writeMarker();
+    writeMarker(true);
     return;
     if (user) {
         if (userHasNoMarkers(user)) { const userEmail = firebase.auth().currentUser.email; writeMarker(userEmail); }
@@ -34,13 +34,13 @@ function userHasNoMarkers(user) {
     return true;
 } 
 
-function writeMarker() {
+function writeMarker(clicked) {
     if (count == 0) {
         getLat("Nothing", null)
     } 
     var select = document.getElementById('locationInput');
     var building = select.options[select.selectedIndex].value;
-    getLat(building);
+    getLat(building, clicked);
 }
 /*
 function writeMarker(userEmail) {
@@ -56,7 +56,7 @@ function signin_page() {
     window.location.href = "signin2.html";
 }
 
-async function getLat(building) {
+async function getLat(building, clicked) {
     if (count == 0 || building == "Nothing") {
         count++;
         var firebaseRef = firebase.database().ref('Marker');
@@ -75,6 +75,7 @@ async function getLat(building) {
                 var eventType = document.getElementById('eventType').value;
                 var additional = document.getElementById('additionalType').value;
                 var dateCreated = new Date().toString();
+                var likes = 1;
                 var creator = "";
                 /*
                 creator = userEmail; 
@@ -105,14 +106,21 @@ async function getLat(building) {
                     Longitude: longitude,
                     Picture: picture,
                     Creator: creator,
+                    Likes: likes,
                     Duration: duration,
                     Creation: formattedDateCreated
                 }
                 //console.log("eh2: " + picture);
                 var firebaseRef = firebase.database().ref('Marker');
-                if (building != "Aderhold") {
+
+                //Checking which fields are missing so I can notify user
+                console.log(building + ", " + food + ", " + duration + ", " + eventType + ", " + additional + ", " + picture);
+                if (strcmp(building, "Select Building") != 0 && strcmp (food, "Select Food") != 0 && strcmp (duration, "Select Duration") != 0 &&
+                    strcmp(eventType, "") != 0 && strcmp(additional, "") && strcmp (picture, "") != 0) {
                     markers.push(data);
                     firebaseRef.push(data);
+                } else {
+                    if (clicked) notifyUserMissingFields();
                 }
                 initMap();
                 });
@@ -120,6 +128,10 @@ async function getLat(building) {
         });
     }
 }
+
+function notifyUserMissingFields() {
+    alert("Make sure you complete all the fields!");
+} // notifyUserMissingFields
 
 function getBase64 (file, callback) {
     if (file) {
@@ -130,4 +142,19 @@ function getBase64 (file, callback) {
         callback();
     }
 }
+
+function strcmp(a, b) {
+    if (a.toString() < b.toString()) return -1;
+    if (a.toString() > b.toString()) return 1;
+    return 0;
+}
+
+function f(data) {
+    console.log(data);
+    /*
+    console.log(++data.Likes);
+    var firebaseRef = firebase.database().ref('Marker');
+    firebaseRef.push(data);
+    */
+} // f
 
