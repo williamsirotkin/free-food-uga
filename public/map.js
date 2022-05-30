@@ -1,3 +1,6 @@
+/* Javascript file to allow functionality of map and markers on map */
+
+// Array Of All The Data In Database
 let markers = [];
 let longitudes = []
 let latitudes = [];
@@ -12,6 +15,7 @@ let additionals = [];
 let pictures = [];
 var map;
 
+// Handles When User Doesn't Have Location Allowed
 function handleLocationError(browserHasGeolocation, infoWindow, pos) {
     infoWindow.setPosition(pos);
     infoWindow.setContent(
@@ -22,6 +26,9 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
     infoWindow.open(map);
   }
 
+/*
+  Initializes the Map With All Data Of Markers From Database
+*/
 function initMap() {
     longitudes = [];
     latitudes = [];
@@ -44,14 +51,16 @@ function initMap() {
       center: ugaLocation,
     }); 
 
+    // If User Has Location On, put their coordinates on map and center map there 
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(
           (position) => {
             const pos = {
+                //Temporary: Coordinates Are UGA Centered until everyone is back in athens in august
                 lat: 33.9480,
                 lng: -83.3773
-    // uncomment when ready         lat: position.coords.latitude,
-     //         lng: position.coords.longitude,
+                //lat: position.coords.latitude,
+                //lng: position.coords.longitude,
             };
             let infowindow = new google.maps.InfoWindow({
                 content: "Your Location"
@@ -71,14 +80,16 @@ function initMap() {
             });
           },
           () => {
-            handleLocationError(true, infoWindow, map.getCenter());
+            handleLocationError(true, infoWindow, pos);
           }
         );
       } else {
         // Browser doesn't support Geolocation
-        handleLocationError(false, infoWindow, map.getCenter());
+        handleLocationError(false, infoWindow, pos);
       }
 
+
+    // Looping to do the actual initialization of each marker. Data is retrieved from arrays and displayed 
     for (let i = 0; i < latitudes.length; i++) {
         console.log(isDurationOver(durations[i], creationTimes[i]));
         //if (isDurationOver(durations[i], creationTimes[i])) continue;
@@ -86,18 +97,18 @@ function initMap() {
         if (!additionals[i]) additionals[i] = "";
         let myLatLng = new google.maps.LatLng(latitudes[i], longitudes[i]); 
         var infoWindowContent = "<center><b>Free</b> " + formatFood(foods[i]).bold() + " <b>at</b> " + nameBuilding(buildings[i]).bold() + "<b>!<br><br></b></center>";
-        var temp = "<style> img { height = 160px; width: 115px; float: right; padding: 2px;}p {width: 70%;float: left;}</style>"
+        var temp = "<style> img { height = 140px; width: 115px; float: right; padding: 2px;}p {width: 75%;float: left;}</style>"
         temp += "<img src=" + pictures[i] + ">";
         infoWindowContent += temp;
         infoWindowContent += "Event: <br>" + events[i].bold() + "<br><br>";
         infoWindowContent += "Time: <br>" + getStartTimeFromCreationTime(creationTimes[i]).bold() + "<b>-<br></b>" + getEndTimeFromDuration(durations[i], creationTimes[i]).bold() + "<br>";
-        if (additionals[i]) infoWindowContent += "<br>" + additionals[i] + "<br><br>";
-        else infoWindowContent += "<br><br><br><br><br><br>";
+        infoWindowContent += "<br>Details: ";
+        infoWindowContent += "<br>" + additionals[i].bold() + "<br>";
         infoWindowContent += "<br><a href=https://www.google.com/maps/dir/?api=1&destination=" + latitudes[i] + '%2C' + longitudes[i] + "&travelmode=walking" + "><br>Directions</a>";
-        infoWindowContent += " &nbsp<a href=https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=" + latitudes[i] + "%2C" + longitudes[i] + "&heading=-45&pitch=38&fov=80" + ">Street View</a>";
+        infoWindowContent += " &nbsp&nbsp<a href=https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=" + latitudes[i] + "%2C" + longitudes[i] + "&heading=-45&pitch=38&fov=80" + ">Street View</a>";
         var inputStr = buildings[i] + ', ' + foods[i] + ', ' + events[i] + ', ' + additionals[i] + ', ' + latitudes[i] + ', ' + longitudes[i] + ', ' + pictures[i] + ', ' + creators[i] + ', ' + likes[i] + ', ' + durations[i] + ', ' + creationTimes[i];
-        infoWindowContent += "&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp" +
-               "<button onclick = f(" + 'hello' + ") type='button'> <img style = 'width: 10px' src = 'Images/like.png'></button> " + 12;
+        infoWindowContent += "&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp";
+          //     "<button onclick = f(" + 'hello' + ") type='button'> <img style = 'width: 10px' src = 'Images/like.png'></button> " + 12;
         let infowindow = new google.maps.InfoWindow({
             content: infoWindowContent
         });
@@ -122,6 +133,7 @@ function initMap() {
     }
 }
 
+// Delete a Marker from the database
 function deleteFromDatabase() {
     firebase.database().ref('Marker').remove();
 }

@@ -15,17 +15,15 @@ firebase.initializeApp(firebaseConfig);
 var count = 0;
 var latitude = 50;
 var longitude = 50;
-//let emailSet = new Set();
+let emailSet = new Set();
 
 function checkUser() {
     const user = firebase.auth().currentUser;
-    writeMarker(true);
-    return;
     if (user) {
-        if (userHasNoMarkers(user)) { const userEmail = firebase.auth().currentUser.email; writeMarker(userEmail); }
+        if (userHasNoMarkers(user)) { const userEmail = firebase.auth().currentUser.email; writeMarker(true, userEmail); }
         else console.log("You have already placed a marker");
     } else {
-        signin_page();
+        alert("Login to Google to add food!")
     }
 }
 
@@ -34,16 +32,7 @@ function userHasNoMarkers(user) {
     return true;
 } 
 
-function writeMarker(clicked) {
-    if (count == 0) {
-        getLat("Nothing", null)
-    } 
-    var select = document.getElementById('locationInput');
-    var building = select.options[select.selectedIndex].value;
-    getLat(building, clicked);
-}
-/*
-function writeMarker(userEmail) {
+function writeMarker(clicked, userEmail) {
     if (count == 0) {
         getLat("Nothing", userEmail)
     } 
@@ -51,12 +40,12 @@ function writeMarker(userEmail) {
     var building = select.options[select.selectedIndex].value;
     getLat(building, userEmail);
 }
-*/
+
 function signin_page() {
     window.location.href = "signin2.html";
 }
 
-async function getLat(building, clicked) {
+async function getLat(building, clicked, userEmail) {
     if (count == 0 || building == "Nothing") {
         count++;
         var firebaseRef = firebase.database().ref('Marker');
@@ -77,10 +66,10 @@ async function getLat(building, clicked) {
                 var dateCreated = new Date().toString();
                 var likes = 1;
                 var creator = "";
-                /*
+                
                 creator = userEmail; 
                 if (userEmail) emailSet.add(userEmail);
-                    
+                    /*
                     var pic = document.createElement('image');
                     const picInput = document.getElementById('picture').files[0];
                     pic.src = URL.createObjectURL(picInput);
