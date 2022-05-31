@@ -15,6 +15,7 @@ let additionals = [];
 let pictures = [];
 var map;
 
+
 // Handles When User Doesn't Have Location Allowed
 function handleLocationError(browserHasGeolocation, infoWindow, pos) {
     infoWindow.setPosition(pos);
@@ -91,24 +92,28 @@ function initMap() {
 
     // Looping to do the actual initialization of each marker. Data is retrieved from arrays and displayed 
     for (let i = 0; i < latitudes.length; i++) {
+        addToEmailSet(creators[i]);
         console.log(isDurationOver(durations[i], creationTimes[i]));
-        //if (isDurationOver(durations[i], creationTimes[i])) continue;
+        if (isDurationOver(durations[i], creationTimes[i])) continue;
         if (!events[i]) events[i] = "";
         if (!additionals[i]) additionals[i] = "";
         let myLatLng = new google.maps.LatLng(latitudes[i], longitudes[i]); 
         var infoWindowContent = "<center><b>Free</b> " + formatFood(foods[i]).bold() + " <b>at</b> " + nameBuilding(buildings[i]).bold() + "<b>!<br><br></b></center>";
+   //     infoWindowContent += "&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<a href=https://www.google.com/maps/dir/?api=1&destination=" + latitudes[i] + '%2C' + longitudes[i] + "&travelmode=walking" + "><br>Directions</a>";
+   //     infoWindowContent += " &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<a href=https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=" + latitudes[i] + "%2C" + longitudes[i] + "&heading=-45&pitch=38&fov=80" + ">Street View</a><br><br>";
         var temp = "<style> img { height = 140px; width: 115px; float: right; padding: 2px;}p {width: 75%;float: left;}</style>"
         temp += "<img src=" + pictures[i] + ">";
         infoWindowContent += temp;
         infoWindowContent += "Event: <br>" + events[i].bold() + "<br><br>";
-        infoWindowContent += "Time: <br>" + getStartTimeFromCreationTime(creationTimes[i]).bold() + "<b>-<br></b>" + getEndTimeFromDuration(durations[i], creationTimes[i]).bold() + "<br>";
+        infoWindowContent += "Date: <br>" + new Date().toLocaleString('en-us', { weekday: 'long' }).substring(0, 3).bold() + ", " + new Date().toLocaleString('default', {month: 'long'}).substring(0, 3).bold() + " " + getDateAsString().bold(); 
+        infoWindowContent += "<br><br>Time: <br>" + getStartTimeFromCreationTime(creationTimes[i]).bold() + "<b>-</b>" + getEndTimeFromDuration(durations[i], creationTimes[i]).bold() + "</br>";
         infoWindowContent += "<br>Details: ";
         infoWindowContent += "<br>" + additionals[i].bold() + "<br>";
-        infoWindowContent += "<br><a href=https://www.google.com/maps/dir/?api=1&destination=" + latitudes[i] + '%2C' + longitudes[i] + "&travelmode=walking" + "><br>Directions</a>";
-        infoWindowContent += " &nbsp&nbsp<a href=https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=" + latitudes[i] + "%2C" + longitudes[i] + "&heading=-45&pitch=38&fov=80" + ">Street View</a>";
+        infoWindowContent += "<a href=https://www.google.com/maps/dir/?api=1&destination=" + latitudes[i] + '%2C' + longitudes[i] + "&travelmode=walking" + "><br>Directions</a>";
+      //  infoWindowContent += " &nbsp&nbsp<a href=https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=" + latitudes[i] + "%2C" + longitudes[i] + "&heading=-45&pitch=38&fov=80" + ">Street View</a>";
         var inputStr = buildings[i] + ', ' + foods[i] + ', ' + events[i] + ', ' + additionals[i] + ', ' + latitudes[i] + ', ' + longitudes[i] + ', ' + pictures[i] + ', ' + creators[i] + ', ' + likes[i] + ', ' + durations[i] + ', ' + creationTimes[i];
-        infoWindowContent += "&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp";
-          //     "<button onclick = f(" + 'hello' + ") type='button'> <img style = 'width: 10px' src = 'Images/like.png'></button> " + 12;
+        infoWindowContent += "&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp";  
+        //     "<button onclick = f(" + 'hello' + ") type='button'> <img style = 'width: 10px' src = 'Images/like.png'></button> " + 12;
         let infowindow = new google.maps.InfoWindow({
             content: infoWindowContent
         });
@@ -133,7 +138,7 @@ function initMap() {
     }
 }
 
-// Delete a Marker from the database
+// Delete All Markers from the database
 function deleteFromDatabase() {
     firebase.database().ref('Marker').remove();
 }
@@ -143,6 +148,11 @@ function readFromDatabase() {
     var ref = database.ref('Marker');
     ref.on('value', gotData, errData);
 }
+
+function addToEmailSet(email) {
+    emailSet.add(email);
+} // addToEmailSet
+
 
 function gotData(data) {
     var stuff = data.val()
@@ -233,8 +243,8 @@ function getStartTimeFromCreationTime(time) {
 
     if (hours == 24) hours = 0;
     
-    if (hours >= 12) { amOrPm = " PM"; hours -= 12; }
-    else amOrPm = " AM";
+    if (hours >= 12) { amOrPm = ""; hours -= 12; }
+    else amOrPm = "";
     if (minutes == 0) return hours + ":" + "00" + amOrPm;
     return hours + ":" + minutes + amOrPm;
 } 
@@ -249,5 +259,20 @@ function nameBuilding(b) {
     return b + " Hall";
     return b;
 
+}
+
+function getDateAsString() {
+    var date = new Date();
+    var day = date.getDate();
+    var extra = "th";
+
+    if (day % 10 == 1 && day != 11) {
+        extra = "st";
+    } else if (day % 10 == 2 && day != 12) {
+        extra = "nd";
+    } else if (day % 10 == 3 && day != 13) {
+        extra = "rd";
+    } 
+    return day + extra;
 }
 

@@ -15,30 +15,34 @@ firebase.initializeApp(firebaseConfig);
 var count = 0;
 var latitude = 50;
 var longitude = 50;
-let emailSet = new Set();
+let emailSet = new Set(); // holds user emails. Will return in constant time if user already has placed a marker, so we can prevent them from placing multiple
 
 function checkUser() {
     const user = firebase.auth().currentUser;
     if (user) {
-        if (userHasNoMarkers(user)) { const userEmail = firebase.auth().currentUser.email; writeMarker(true, userEmail); }
-        else console.log("You have already placed a marker");
+        if (userHasNoMarkers(user)) { 
+            writeMarker(true, user.email); 
+        } else alert("You have already placed a marker");
     } else {
         alert("Login to Google to add food!")
     }
 }
 
 function userHasNoMarkers(user) {
+   // console.log("LOOK: " + emailSet.has(user.email));
+       // console.log("look: " + emailSet.values(i));
+    if (user.email === "freefooduga@gmail.com") return true; // for testing purposes
     if (emailSet.has(user.email)) return false;
     return true;
 } 
 
 function writeMarker(clicked, userEmail) {
     if (count == 0) {
-        getLat("Nothing", userEmail)
+        getLat("Nothing", false, userEmail)
     } 
     var select = document.getElementById('locationInput');
     var building = select.options[select.selectedIndex].value;
-    getLat(building, userEmail);
+    getLat(building, clicked, userEmail);
 }
 
 function signin_page() {
@@ -65,10 +69,8 @@ async function getLat(building, clicked, userEmail) {
                 var additional = document.getElementById('additionalType').value;
                 var dateCreated = new Date().toString();
                 var likes = 1;
-                var creator = "";
-                
-                creator = userEmail; 
-                if (userEmail) emailSet.add(userEmail);
+                var creator = userEmail;
+                emailSet.add(userEmail);
                     /*
                     var pic = document.createElement('image');
                     const picInput = document.getElementById('picture').files[0];
@@ -79,12 +81,8 @@ async function getLat(building, clicked, userEmail) {
                 var picture = "";
                 if (document.getElementById('picture')) picInput = document.getElementById('picture').files[0];
                 getBase64(picInput, function(base64Data){
-                    console.log("1: " + picture);
                     picture = base64Data;
-                    console.log("2 : " + picture);
-                    console.log("3: " + picture);
                     
-                console.log("eh: " + picture);
                 var formattedDateCreated = dateCreated.substring(dateCreated.indexOf(":") - 2, dateCreated.indexOf(":") + 3);
                 var data = {
                     Building : building,
